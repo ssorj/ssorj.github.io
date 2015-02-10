@@ -4,17 +4,13 @@
 
 ## Qpid
 
- - [Website](http://qpid.apache.org/)
- - [Website code](http://svn.apache.org/repos/asf/qpid/site/)
  - [Developer central](http://qpid.apache.org/developer.html)
  - [Documentation](http://qpid.apache.org/documentation.html)
  - [Releases](https://cwiki.apache.org/confluence/display/qpid/Releases)
  - [People page](http://people.apache.org/~jross/)
- - [Quirk](https://github.com/ssorj/quirk)
 
 ## Code
 
- - [Transom](@site-url@/transom.html)
  - [GitHub projects](https://github.com/ssorj?tab=repositories)
  - [Bash manual](https://www.gnu.org/software/bash/manual/html_node/)
  - [CSS2 spec](http://www.w3.org/TR/CSS2/)

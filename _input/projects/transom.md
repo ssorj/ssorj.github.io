@@ -2,6 +2,12 @@
 
 Transom renders website content from markdown source files.
 
+## Source code
+
+The Transom source code lives at GitHub.
+
+> <https://github.com/ssorj/transom>
+
 ## Development
 
 To setup paths in your development environment, source the `devel.sh`
@@ -10,7 +16,7 @@ script from the project directory.
     $ cd transom/
     transom$ source devel.sh
 
-The 'devel' make target uses the environment established by 'devel.sh'
+The `devel` make target uses the environment established by `devel.sh`
 to install and test your checkout.
 
     transom$ make devel
@@ -70,7 +76,7 @@ Render the site.
     $ transom input/ /home/jross/output/
 
 Look at the result in your browser by navigating to the output
-location:
+location.
 
     file:///home/jross/output/some-page.html
 
@@ -87,12 +93,12 @@ These files are not copied to the output.
 
 Transom takes files in the input directory reproduces them in the
 output directory.  The following transformations are applied in the
-process:
+process.
 
  - `.html.in` files are wrapped in the site template and copied
- - `.md` (markdown) files are converted to HTML and then treated
-   just as `.html.in` files are
- - All other files are copied
+ - `.md` (Markdown) files are converted to HTML, wrapped in the site
+   template, and copied
+ - All other files are simply copied
  - All Markdown, HTML, Javascript, and CSS files undergo substitution
    for `@placeholders@`
 
@@ -116,7 +122,8 @@ Fedora it is part of the `emacs-goodies` package.
 `$INPUT_DIR/_config.ini` defines some variables usable for any input
 page.  To illustrate:
 
-    @current-release@          -> 0.20
+    @site-url@            -> [Configured]
+    @current-release@     -> 0.20
 
 By default, the `site-url` placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When

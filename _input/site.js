@@ -56,4 +56,4 @@ function _updatePathNavigation() {
     }
 }
 
-_updatePathNavigation();
+//_updatePathNavigation();

@@ -34,7 +34,7 @@ code {
     color: #060;
 }
 
-pre {
+blockquote, pre {
     margin-left: 2em;
 }
 
@@ -68,7 +68,6 @@ li {
 #-path-navigation {
     padding: 0;
     font-size: 0.9em;
-    display: none;
 }
 
 #-path-navigation > li {
@@ -91,8 +90,13 @@ li {
 }
 
 @media screen and (max-width: 360px) {
+    body {
+        font: 12pt/14pt Roboto, sans-serif;
+        margin: 1em;
+    }
+
     .two-column, .three-column, .four-column {
         -webkit-column-count: 1;
         -moz-column-count: 1;
-    }
+    }    
 }

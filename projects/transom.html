@@ -8,10 +8,18 @@
     <script type="text/javascript" src="http://www.ssorj.net/site.js" defer="defer"></script>
   </head>
   <body>
-    <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li>Transom</li></ul>
+    <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Transom</li></ul>
     <h1 id="transom">Transom</h1>
 
 <p>Transom renders website content from markdown source files.</p>
+
+<h2 id="source-code">Source code</h2>
+
+<p>The Transom source code lives at GitHub.</p>
+
+<blockquote>
+  <p><a href="https://github.com/ssorj/transom">https://github.com/ssorj/transom</a></p>
+</blockquote>
 
 <h2 id="development">Development</h2>
 
@@ -22,7 +30,7 @@ script from the project directory.</p>
 transom$ source devel.sh
 </code></pre>
 
-<p>The 'devel' make target uses the environment established by 'devel.sh'
+<p>The <code>devel</code> make target uses the environment established by <code>devel.sh</code>
 to install and test your checkout.</p>
 
 <pre><code>transom$ make devel
@@ -91,7 +99,7 @@ directory.</p>
 </code></pre>
 
 <p>Look at the result in your browser by navigating to the output
-location:</p>
+location.</p>
 
 <pre><code>file:///home/jross/output/some-page.html
 </code></pre>
@@ -110,13 +118,13 @@ input/_template.html  # The template for HTML pages
 
 <p>Transom takes files in the input directory reproduces them in the
 output directory.  The following transformations are applied in the
-process:</p>
+process.</p>
 
 <ul>
 <li><code>.html.in</code> files are wrapped in the site template and copied</li>
-<li><code>.md</code> (markdown) files are converted to HTML and then treated
-just as <code>.html.in</code> files are</li>
-<li>All other files are copied</li>
+<li><code>.md</code> (Markdown) files are converted to HTML, wrapped in the site
+template, and copied</li>
+<li>All other files are simply copied</li>
 <li>All Markdown, HTML, Javascript, and CSS files undergo substitution
 for <code>@placeholders@</code></li>
 </ul>
@@ -137,7 +145,8 @@ Fedora it is part of the <code>emacs-goodies</code> package.</p>
 <p><code>$INPUT_DIR/_config.ini</code> defines some variables usable for any input
 page.  To illustrate:</p>
 
-<pre><code>@current-release@          -&gt; 0.20
+<pre><code>http://www.ssorj.net            -&gt; [Configured]
+@current-release@     -&gt; 0.20
 </code></pre>
 
 <p>By default, the <code>site-url</code> placeholder is set to a filesystem path in
