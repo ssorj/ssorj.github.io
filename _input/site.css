@@ -29,6 +29,15 @@ a {
     text-decoration: none;
 }
 
+code {
+    font-size: 0.8em;
+    color: #060;
+}
+
+pre {
+    margin-left: 2em;
+}
+
 ul {
     padding-left: 2em;
 }
