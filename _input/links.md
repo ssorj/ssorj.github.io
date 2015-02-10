@@ -5,11 +5,12 @@
 ## Qpid
 
  - [Website](http://qpid.apache.org/)
+ - [Website code](http://svn.apache.org/repos/asf/qpid/site/)
  - [Developer central](http://qpid.apache.org/developer.html)
  - [Documentation](http://qpid.apache.org/documentation.html)
  - [Releases](https://cwiki.apache.org/confluence/display/qpid/Releases)
- - [Site code](http://svn.apache.org/repos/asf/qpid/site/)
  - [People page](http://people.apache.org/~jross/)
+ - [Quirk](https://github.com/ssorj/quirk)
 
 ## Code
 
