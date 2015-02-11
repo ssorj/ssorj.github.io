@@ -63,6 +63,11 @@ Use the `--site-url` option to control the prefix used for HTML links.
 
     $ transom --site-url "http://ssorj.net" input/ output/
 
+By default, the `site-url` placeholder is set to a filesystem path in
+your development environment, to allow for local testing.  When
+publishing work to a public website root, you'll need to supply the
+appropriate site url.
+
 Use the `--verbose` option to see lots of logging.
 
 ## Adding content
@@ -84,8 +89,8 @@ location.
 
 Transom looks for two special files under the input directory.
 
-    input/_config.ini     # Custom site variables
-    input/_template.html  # The template for HTML pages
+    $INPUT_DIR/_config.ini     # Custom placeholders
+    $INPUT_DIR/_template.html  # The template for HTML pages
 
 These files are not copied to the output.
 
@@ -119,18 +124,27 @@ Fedora it is part of the `emacs-goodies` package.
 
 ## Placeholders
 
-`$INPUT_DIR/_config.ini` defines some variables usable for any input
-page.  To illustrate:
+`$INPUT_DIR/_config.ini` can be used to define variables for use in
+any input page.  The values will be substituted on output.
 
-    @site-url@            -> [Configured]
-    @current-release@     -> 0.20
+    [main]
+    current-release = 1.0
+    current-release-url = http://example.com/releases/1.0/index.html
+    
+The placeholder can then be embedded in any input file.  Placeholders
+are marked with a beginning and ending `@`.
 
-By default, the `site-url` placeholder is set to a filesystem path in
-your development environment, to allow for local testing.  When
-publishing work to a public website root, you'll need to supply the
-appropriate site url.
+    [@current-release@](@current-release-url@) is the current release
+    
+    <a href="http://example.com/releases/1.0/index.html">1.0</a> is
+    the current release
 
-    $ transom --site-url "http://example.com/" input/ output/ 
+There are some built-in placeholders for important cases.
+
+    site-url              The URL prefix for your site
+    path-navigation       An HTML list for use in site navigation
+    title                 Positions the template title
+    content               Positions the template content
 
 ;; ## Checking links
 ;; 
@@ -144,5 +158,3 @@ appropriate site url.
 ;;
 ;;     # Check external links as well
 ;;     transom$ make check-links EXTERNAL=1
-
-;; Discuss @path-navigation@ and @content@

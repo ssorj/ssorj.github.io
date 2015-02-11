@@ -8,8 +8,14 @@
     <script type="text/javascript" src="http://www.ssorj.net/site.js" defer="defer"></script>
   </head>
   <body>
-    <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Transom</li></ul>
-    <h1 id="transom">Transom</h1>
+    <div id="-head">
+      <div id="-head-content">
+        <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Transom</li></ul>
+      </div>
+    </div>
+    <div id="-body">
+      <div id="-body-content">
+        <h1 id="transom">Transom</h1>
 
 <p>Transom renders website content from markdown source files.</p>
 
@@ -84,6 +90,11 @@ directory.</p>
 <pre><code>$ transom --site-url "http://ssorj.net" input/ output/
 </code></pre>
 
+<p>By default, the <code>site-url</code> placeholder is set to a filesystem path in
+your development environment, to allow for local testing.  When
+publishing work to a public website root, you'll need to supply the
+appropriate site url.</p>
+
 <p>Use the <code>--verbose</code> option to see lots of logging.</p>
 
 <h2 id="adding-content">Adding content</h2>
@@ -108,8 +119,8 @@ location.</p>
 
 <p>Transom looks for two special files under the input directory.</p>
 
-<pre><code>input/_config.ini     # Custom site variables
-input/_template.html  # The template for HTML pages
+<pre><code>$INPUT_DIR/_config.ini     # Custom placeholders
+$INPUT_DIR/_template.html  # The template for HTML pages
 </code></pre>
 
 <p>These files are not copied to the output.</p>
@@ -142,20 +153,36 @@ Fedora it is part of the <code>emacs-goodies</code> package.</p>
 
 <h2 id="placeholders">Placeholders</h2>
 
-<p><code>$INPUT_DIR/_config.ini</code> defines some variables usable for any input
-page.  To illustrate:</p>
+<p><code>$INPUT_DIR/_config.ini</code> can be used to define variables for use in
+any input page.  The values will be substituted on output.</p>
 
-<pre><code>http://www.ssorj.net            -&gt; [Configured]
-@current-release@     -&gt; 0.20
+<pre><code>[main]
+current-release = 1.0
+current-release-url = http://example.com/releases/1.0/index.html
 </code></pre>
 
-<p>By default, the <code>site-url</code> placeholder is set to a filesystem path in
-your development environment, to allow for local testing.  When
-publishing work to a public website root, you'll need to supply the
-appropriate site url.</p>
+<p>The placeholder can then be embedded in any input file.  Placeholders
+are marked with a beginning and ending <code>@</code>.</p>
 
-<pre><code>$ transom --site-url "http://example.com/" input/ output/
+<pre><code>[@current-release@](@current-release-url@) is the current release
+
+&lt;a href="http://example.com/releases/1.0/index.html"&gt;1.0&lt;/a&gt; is
+the current release
 </code></pre>
 
+<p>There are some built-in placeholders for important cases.</p>
+
+<pre><code>site-url              The URL prefix for your site
+path-navigation       An HTML list for use in site navigation
+title                 Positions the template title
+content               Positions the template content
+</code></pre>
+
+      </div>
+    </div>
+    <div id="-foot">
+      <div id="-foot-content">
+      </div>
+    </div>
   </body>
 </html>
