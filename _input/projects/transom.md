@@ -96,7 +96,7 @@ These files are not copied to the output.
 
 ## Render transformations
 
-Transom takes files in the input directory reproduces them in the
+Transom takes files in the input directory and reproduces them in the
 output directory.  The following transformations are applied in the
 process.
 
@@ -130,7 +130,7 @@ any input page.  The values will be substituted on output.
     [main]
     current-release = 1.0
     current-release-url = http://example.com/releases/1.0/index.html
-    
+
 The placeholder can then be embedded in any input file.  Placeholders
 are marked with a beginning and ending `@`.
 

@@ -36,11 +36,11 @@
 
 ## Packaging
 
- - [Magnum packages](http://people.apache.org/~jross/magnum/noarch/)
  - [Fedora packages](https://apps.fedoraproject.org/packages/)
  - [Fedora packaging guidelines](http://fedoraproject.org/wiki/Packaging:Guidelines)
  - [Linux FHS](http://refspecs.linuxfoundation.org/FHS_2.3/fhs-2.3.html)
- - [Maximum RPM](http://www.rpm.org/max-rpm/)
+ - [RPM find](http://rpmfind.net/linux/RPM/)
+ - [RPM guide](http://rpm5.org/docs/rpm-guide.html)
  - [Updating library versions](http://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
 
 ## Personal

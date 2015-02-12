@@ -28,13 +28,14 @@ a {
     text-decoration: none;
 }
 
-code {
-    font-size: 0.8em;
-    color: #060;
+code, pre {
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: 400;
+    color: #666;
 }
 
 blockquote, pre {
-    margin-left: 2em;
+    margin-left: 1.2em;
 }
 
 ul {
@@ -66,7 +67,6 @@ li {
 }
 
 #-head-content {
-//    padding: 0.45em 1.8em 0.3em 1.8em;
     padding: 0.6em 1.8em;
     margin: 0 auto;
     max-width: 48em;
@@ -113,16 +113,20 @@ li {
     font-size: 0.9em;
 }
 
-@media screen and (max-width: 639px) {
+@media screen and (max-width: 720px) {
     .two-column, .three-column, .four-column {
         -webkit-column-count: 2;
         -moz-column-count: 2;
     }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 480px) {
     body {
-        font: 12pt/16pt Roboto, sans-serif;
+        font-size: 12pt;
+    }
+
+    pre {
+        font-size: 0.9em;
     }
 
     .two-column, .three-column, .four-column {
