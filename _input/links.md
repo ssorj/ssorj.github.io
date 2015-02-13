@@ -1,18 +1,9 @@
 # Links
 
-<div id="-links" class="three-column" markdown="1">
-
-## Qpid
-
- - [Website](https://qpid.apache.org/)
- - [Developer central](http://qpid.apache.org/developer.html)
- - [Documentation](http://qpid.apache.org/documentation.html)
- - [Releases](https://cwiki.apache.org/confluence/display/qpid/Releases)
- - [People page](http://people.apache.org/~jross/)
+<div id="-links" class="two-column" markdown="1">
 
 ## Code
 
- - [GitHub projects](https://github.com/ssorj?tab=repositories)
  - [Bash manual](https://www.gnu.org/software/bash/manual/html_node/)
  - [CSS2 spec](http://www.w3.org/TR/CSS2/)
  - [HTML5 spec](http://www.w3.org/TR/html5/)
@@ -26,14 +17,6 @@
  - [Sed one-liners](http://sed.sourceforge.net/sed1line.txt)
  - [Syntax across languages](http://rigaux.org/language-study/syntax-across-languages.html)
 
-## Finance
-
- - [Inflation calculator](http://data.bls.gov/cgi-bin/cpicalc.pl)
- - [Market CAGR](http://www.moneychimp.com/features/market_cagr.htm)
- - [Risky retirement calculator](http://www.moneychimp.com/articles/randomness/retirement_odds.htm)
- - [Safe withdrawal rates](http://www.bogleheads.org/wiki/Safe_withdrawal_rates)
- - [S&P 500 PE ratio](http://www.multpl.com/)
-
 ## Packaging
 
  - [Fedora packages](https://apps.fedoraproject.org/packages/)
@@ -43,13 +26,26 @@
  - [RPM guide](http://rpm5.org/docs/rpm-guide.html)
  - [Updating library versions](http://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
 
+## Finance
+
+ - [Inflation calculator](http://data.bls.gov/cgi-bin/cpicalc.pl)
+ - [Market CAGR](http://www.moneychimp.com/features/market_cagr.htm)
+ - [Risky retirement calculator](http://www.moneychimp.com/articles/randomness/retirement_odds.htm)
+ - [Safe withdrawal rates](http://www.bogleheads.org/wiki/Safe_withdrawal_rates)
+ - [S&P 500 PE ratio](http://www.multpl.com/)
+
 ## Personal
 
+ - [Apache people page](http://people.apache.org/~jross/)
+ - [GitHub profile](https://github.com/ssorj)
  - [LinkedIn profile](https://www.linkedin.com/in/ssorj)
- - [Public files on Google Drive](https://drive.google.com/drive/#folders/0B7GmVtK1EBOMSEE0UkRxVkJiUmc)
+ - [Google Drive files](https://drive.google.com/drive/#folders/0B7GmVtK1EBOMSEE0UkRxVkJiUmc)
+ - [YouTube channel](https://www.youtube.com/user/justi9)
 
 ## Miscellaneous
 
+ - [Camelcamelcamel](http://camelcamelcamel.com/)
+ - [Gist](https://gist.github.com/)
  - [Google fonts](https://www.google.com/fonts)
  - [Ipsum generator](http://www.commercekitchen.com/whedon-ipsum/)
  - [Setup SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)

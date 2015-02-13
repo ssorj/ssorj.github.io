@@ -38,6 +38,10 @@ blockquote, pre {
     margin-left: 1.2em;
 }
 
+pre {
+    font-size: 0.9em;
+}
+
 ul {
     padding-left: 2em;
 }
