@@ -13,14 +13,13 @@ script operations.
 
 ## Parameters
 
- - A `path` parameter is a path to a file or directory
- - A `dir` parameter is a path to a directory
- - A `file` parameter is a path to a file
- - A `name` parameter is the file or directory name without any
-   preceding path
- - A `pattern` parameter is a shell glob, a la `*.py`
- - An `expr` parameter is a regular expression
- - A `command` parameter is something we pass to the shell
+ - `path` is a path to a file or directory
+ - `dir` is a path to a directory
+ - `file` is a path to a file
+ - `name` is the file or directory name without any preceding path
+ - `pattern` is a shell glob, a la `*.py`
+ - `expr` is a regular expression
+ - `command` is something we pass to the shell
 
 ## Environment
 
