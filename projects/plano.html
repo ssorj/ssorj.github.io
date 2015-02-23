@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Plano - Justin Ross</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,300italic%7CUbuntu+Mono:400" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://www.ssorj.net/site.css" type="text/css"/>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAN0lEQVQ4y2NgoDH4jwVTbMB/arjgP6k2YrP9P7kG4PUKPicT5X9CTv5PbqhTxQUDl3BGmgEkAwClaVykZYtXsQAAAABJRU5ErkJggg==" type="image/png"/>
+    <script type="text/javascript" src="http://www.ssorj.net/site.js" defer="defer"></script>
+  </head>
+  <body>
+    <div id="-head">
+      <div id="-head-content">
+        <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Plano</li></ul>
+      </div>
+    </div>
+    <div id="-body">
+      <div id="-body-content">
+        <h1 id="plano">Plano</h1>
+
+<p>The notion here is to use the global function namespace for common
+script operations.</p>
+
+<ul>
+<li>At this point, this works for posix, not windows</li>
+<li>The character encoding is always UTF-8</li>
+<li>All temporary values are cleaned up on exit</li>
+<li>Philosophy: Don't fuss, just do it; for instance, directories are generally
+created as needed</li>
+<li>Philosophy: Don't be shy about talking about what you're doing on
+the console</li>
+</ul>
+
+<h2 id="parameters">Parameters</h2>
+
+<ul>
+<li>A <code>path</code> parameter is a path to a file or directory</li>
+<li>A <code>dir</code> parameter is a path to a directory</li>
+<li>A <code>file</code> parameter is a path to a file</li>
+<li>A <code>name</code> parameter is the file or directory name without any
+preceding path</li>
+<li>A <code>pattern</code> parameter is a shell glob, a la <code>*.py</code></li>
+<li>An <code>expr</code> parameter is a regular expression</li>
+<li>A <code>command</code> parameter is something we pass to the shell</li>
+</ul>
+
+<h2 id="environment">Environment</h2>
+
+<pre><code>ENV                       Dictionary of environment variables
+ARGV                      List of command-line arguments; 0th is executable
+PATH_SEP                  '/' on posix, '\' on windows
+LINE_SEP                  /n on posix, /n/r on windows
+</code></pre>
+
+<h2 id="path-operations">Path operations</h2>
+
+<pre><code>join(head, tail)          -&gt; path
+split(path)               -&gt; head, tail
+spit_extension(path)      -&gt; path, extension
+
+parent_dir(path)          -&gt; dir
+file_name(path)           -&gt; name
+name_stem(name)           -&gt; stem
+name_extension(name)      -&gt; file
+
+exists(path)              -&gt; True or False
+is_absolute(path)         -&gt; True or False
+is_dir(path)              -&gt; True or False
+is_file(path)             -&gt; True or False
+is_link(path)             -&gt; True or False
+
+absolute_path(path)       -&gt; path
+normalize_path(path)      -&gt; path
+</code></pre>
+
+<h2 id="file-operations">File operations</h2>
+
+<pre><code>copy(from_path, to_path)
+move(from_path, to_path)
+rename(path, expr, replacement)
+remove(path)
+
+read(file)                -&gt; unicode
+write(file, string)
+append(file, string)
+prepend(file, string)
+touch(file)
+</code></pre>
+
+<p>These variants take a list of unicode strings, one per line.</p>
+
+<pre><code>read_lines(file)          -&gt; list&lt;unicode&gt;
+write_lines(file, lines)
+append_lines(file, lines)
+prepend(file, lines)
+</code></pre>
+
+<p>These are for stashing named values in a temporary location in the
+filesystem, to make it easy to use those values when you invoke an
+external command.  They return the path of the temporary file.</p>
+
+<pre><code>make_temp(key)            -&gt; path
+open_temp(key, mode="r")  -&gt; file
+read_temp(key)            -&gt; unicode
+write_temp(key, string)   -&gt; path
+append_temp(key, string)  -&gt; path
+prepend_temp(key, string) -&gt; path
+</code></pre>
+
+<p>Operations on symlinks.</p>
+
+<pre><code>make_link(source_path, link_file)
+read_link(file)
+</code></pre>
+
+<h2 id="directory-operations">Directory operations</h2>
+
+<pre><code>make_dir, list_dir, current_dir, change_dir
+
+make_temp_dir, make_user_temp_dir
+
+working_dir
+
+first_name, find, find_only_one
+</code></pre>
+
+<h2 id="standard-paths">Standard paths</h2>
+
+<pre><code>get_home_dir
+
+get_bin_dir get_sbin_dir get_include_dir get_lib_dir
+</code></pre>
+
+<h2 id="string-operations">String operations</h2>
+
+<pre><code>string_replace
+</code></pre>
+
+<h2 id="process-execution">Process execution</h2>
+
+<pre><code>call, call_for_output
+</code></pre>
+
+<h2 id="logging">Logging</h2>
+
+<pre><code>fail, error, warn, notice, debug
+
+exit
+</code></pre>
+
+<h2 id="miscellaneous">Miscellaneous</h2>
+
+<pre><code>make_archive, extract_archive, rename_archive
+
+random_port
+</code></pre>
+
+      </div>
+    </div>
+    <div id="-foot">
+      <div id="-foot-content">
+      </div>
+    </div>
+  </body>
+</html>
