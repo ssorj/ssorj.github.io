@@ -2,7 +2,7 @@
 
 [Magnum](magnum.html) - RPM packages
 
-[Plano](plano.html) - Python functions for writing scripts
+[Plano](plano.html) - "Shell" scripting in Python
 
 [Transom](transom.html) - Render websites from markdown
 

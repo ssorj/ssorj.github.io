@@ -19,58 +19,72 @@
       <div id="-body-content">
         <h1 id="plano">Plano</h1>
 
+<p>Python functions for writing shell-style system scripts.</p>
+
+<h2 id="source-code">Source code</h2>
+
+<blockquote>
+  <p><a href="https://github.com/ssorj/plano">https://github.com/ssorj/plano</a></p>
+</blockquote>
+
+<h2 id="overview">Overview</h2>
+
 <p>The notion here is to use the global function namespace for common
 script operations.</p>
 
 <ul>
 <li>At this point, this works for posix, not windows</li>
-<li>The character encoding is always UTF-8</li>
-<li>All temporary values are cleaned up on exit</li>
-<li>Philosophy: Don't fuss, just do it; for instance, directories are generally
-created as needed</li>
-<li>Philosophy: Don't be shy about talking about what you're doing on
-the console</li>
+<li>The character encoding is always UTF-8, and all strings are treated
+as unicode</li>
+<li>All temporary files are cleaned up on exit</li>
+<li>As a matter of philosophy, don't fuss, just do it; for instance,
+directories are generally created as needed</li>
+<li>And don't be shy about talking about what you're doing on the
+console</li>
 </ul>
 
 <h2 id="parameters">Parameters</h2>
 
 <ul>
-<li><code>path</code> is a path to a file or directory</li>
+<li><code>path</code> is a string path to a file or directory</li>
 <li><code>dir</code> is a path to a directory</li>
 <li><code>file</code> is a path to a file</li>
 <li><code>name</code> is the file or directory name without any preceding path</li>
+<li><code>extension</code> is the terminal 'dot' segment of a name, as in <code>.jar</code>, <code>.patch</code></li>
+<li><code>stem</code> is the name without its extension</li>
 <li><code>pattern</code> is a shell glob, a la <code>*.py</code></li>
 <li><code>expr</code> is a regular expression</li>
 <li><code>command</code> is something we pass to the shell</li>
+<li><code>string</code> is a unicode string</li>
 </ul>
 
 <h2 id="environment">Environment</h2>
 
-<pre><code>ENV                       Dictionary of environment variables
-ARGV                      List of command-line arguments; 0th is executable
-PATH_SEP                  '/' on posix, '\' on windows
-LINE_SEP                  /n on posix, /n/r on windows
+<pre><code>ENV                            Dictionary of environment variables
+ARGV                           List of command-line arguments; 0th is the executable
+PATH_SEP                       '/' on posix, '\' on windows
+LINE_SEP                       /n on posix, /n/r on windows
 </code></pre>
 
 <h2 id="path-operations">Path operations</h2>
 
-<pre><code>join(head, tail)          -&gt; path
-split(path)               -&gt; head, tail
-spit_extension(path)      -&gt; path, extension
+<pre><code>join(head, tail)               -&gt; path
+split(path)                    -&gt; head, tail
+spit_extension(path)           -&gt; path, extension
 
-parent_dir(path)          -&gt; dir
-file_name(path)           -&gt; name
-name_stem(name)           -&gt; stem
-name_extension(name)      -&gt; file
+parent_dir(path)               -&gt; dir
+file_name(path)                -&gt; name
+name_extension(name)           -&gt; extension
+name_stem(name)                -&gt; stem
 
-exists(path)              -&gt; True or False
-is_absolute(path)         -&gt; True or False
-is_dir(path)              -&gt; True or False
-is_file(path)             -&gt; True or False
-is_link(path)             -&gt; True or False
+exists(path)                   -&gt; True or False
+is_absolute(path)              -&gt; True or False
+is_dir(path)                   -&gt; True or False
+is_file(path)                  -&gt; True or False
+is_link(path)                  -&gt; True or False
 
-absolute_path(path)       -&gt; path
-normalize_path(path)      -&gt; path
+absolute_path(path)            -&gt; path
+normalize_path(path)           -&gt; path
 </code></pre>
 
 <h2 id="file-operations">File operations</h2>
@@ -80,7 +94,7 @@ move(from_path, to_path)
 rename(path, expr, replacement)
 remove(path)
 
-read(file)                -&gt; unicode
+read(file)                     -&gt; string
 write(file, string)
 append(file, string)
 prepend(file, string)
@@ -89,7 +103,7 @@ touch(file)
 
 <p>These variants take a list of unicode strings, one per line.</p>
 
-<pre><code>read_lines(file)          -&gt; list&lt;unicode&gt;
+<pre><code>read_lines(file)               -&gt; list of strings
 write_lines(file, lines)
 append_lines(file, lines)
 prepend(file, lines)
@@ -99,12 +113,12 @@ prepend(file, lines)
 filesystem, to make it easy to use those values when you invoke an
 external command.  They return the path of the temporary file.</p>
 
-<pre><code>make_temp(key)            -&gt; path
-open_temp(key, mode="r")  -&gt; file
-read_temp(key)            -&gt; unicode
-write_temp(key, string)   -&gt; path
-append_temp(key, string)  -&gt; path
-prepend_temp(key, string) -&gt; path
+<pre><code>make_temp(key)                 -&gt; file
+open_temp(key, mode="r")       -&gt; Python file object
+read_temp(key)                 -&gt; string
+write_temp(key, string)        -&gt; file
+append_temp(key, string)       -&gt; file
+prepend_temp(key, string)      -&gt; file
 </code></pre>
 
 <p>Operations on symlinks.</p>
@@ -115,13 +129,40 @@ read_link(file)
 
 <h2 id="directory-operations">Directory operations</h2>
 
-<pre><code>make_dir, list_dir, current_dir, change_dir
+<pre><code>make_dir(dir)                  -&gt; dir
+list_dir(dir, *patterns)       -&gt; sorted list of names
+change_dir(dir)                -&gt; previous dir
+current_dir()                  -&gt; dir
+make_temp_dir()                -&gt; dir
+</code></pre>
 
-make_temp_dir, make_user_temp_dir
+<p>Make a temporary directory that is retained on exit.</p>
 
-working_dir
+<pre><code>make_user_temp_dir()           -&gt; dir
+</code></pre>
 
-first_name, find, find_only_one
+<p>Temporarily change the current working dir.  This is intended for use
+with the Python <code>with</code> construct.</p>
+
+<pre><code>with working_dir(dir):
+    assert current_dir() == dir
+</code></pre>
+
+<p>Get the 0th match from <code>list_dir(dir, *patterns)</code>.  Return <code>None</code> if
+there's no match.</p>
+
+<pre><code>first_name(dir, *patterns)     -&gt; name or None
+</code></pre>
+
+<p>Search a filesystem tree recursively.</p>
+
+<pre><code>find(dir, *patterns)           -&gt; sorted list of paths
+</code></pre>
+
+<p>Find only one match, and fail if multiple are found.  Return <code>None</code> if
+nothing matches.</p>
+
+<pre><code>find_only_one(dir, *patterns)  -&gt; path or None
 </code></pre>
 
 <h2 id="standard-paths">Standard paths</h2>
