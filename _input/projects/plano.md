@@ -22,8 +22,6 @@ script operations.
 
 ## Example
 
-        #/usr/bin/env python
-        
         from plano import *
         
         temp_dir = make_temp_dir()
