@@ -51,8 +51,8 @@ script operations.
 
 ## Path operations
 
-    join(path, path)                -> path
-    split(path)                     -> head path, name
+    join(path, *paths)              -> path
+    split(path)                     -> leading path, trailing name
     spit_extension(path)            -> path, extension
 
     parent_dir(path)                -> dir
