@@ -37,7 +37,7 @@ script operations.
  - `dir` is a path to a directory
  - `file` is a path to a file
  - `name` is the file or directory name without any preceding path
- - `extension` is the terminal 'dot' segment of a name, as in `.jar`, `.patch`
+ - `extension` is the last dotted segment of a name, as in `.jar`, `.patch`
  - `stem` is the name without its extension
  - `pattern` is a shell glob, a la `*.py`
  - `expr` is a regular expression
@@ -53,8 +53,8 @@ script operations.
 
 ## Path operations
 
-    join(head, tail)                -> path
-    split(path)                     -> head, tail
+    join(path, path)                -> path
+    split(path)                     -> head path, name
     spit_extension(path)            -> path, extension
 
     parent_dir(path)                -> dir

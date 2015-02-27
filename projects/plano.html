@@ -62,7 +62,7 @@ console</li>
 <li><code>dir</code> is a path to a directory</li>
 <li><code>file</code> is a path to a file</li>
 <li><code>name</code> is the file or directory name without any preceding path</li>
-<li><code>extension</code> is the terminal 'dot' segment of a name, as in <code>.jar</code>, <code>.patch</code></li>
+<li><code>extension</code> is the last dotted segment of a name, as in <code>.jar</code>, <code>.patch</code></li>
 <li><code>stem</code> is the name without its extension</li>
 <li><code>pattern</code> is a shell glob, a la <code>*.py</code></li>
 <li><code>expr</code> is a regular expression</li>
@@ -80,8 +80,8 @@ LINE_SEP                        '/n' on posix, '/n/r' on windows
 
 <h2 id="path-operations">Path operations</h2>
 
-<pre><code>join(head, tail)                -&gt; path
-split(path)                     -&gt; head, tail
+<pre><code>join(path, path)                -&gt; path
+split(path)                     -&gt; head path, name
 spit_extension(path)            -&gt; path, extension
 
 parent_dir(path)                -&gt; dir
