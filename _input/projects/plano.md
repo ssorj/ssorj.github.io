@@ -20,6 +20,17 @@ script operations.
  - And don't be shy about talking about what you're doing on the
    console
 
+## Example
+
+        #/usr/bin/env python
+        
+        from plano import *
+        
+        temp_dir = make_temp_dir()
+        example_file = write(join(temp_dir, "example.a"), "Hello")
+        example_file = move(example_file, join(temp_dir, "example.b"))
+        print read(example_file)
+
 ## Parameters
 
  - `path` is a string path to a file or directory
@@ -35,61 +46,61 @@ script operations.
 
 ## Environment
 
-    ENV                            Dictionary of environment variables
-    ARGV                           List of command-line arguments; 0th is the executable
-    PATH_SEP                       '/' on posix, '\' on windows
-    LINE_SEP                       /n on posix, /n/r on windows
+    ENV                             Dictionary of environment variables
+    ARGS                            List of command-line arguments; the 0th is the executable
+    PATH_SEP                        '/' on posix, '\' on windows
+    LINE_SEP                        '/n' on posix, '/n/r' on windows
 
 ## Path operations
 
-    join(head, tail)               -> path
-    split(path)                    -> head, tail
-    spit_extension(path)           -> path, extension
+    join(head, tail)                -> path
+    split(path)                     -> head, tail
+    spit_extension(path)            -> path, extension
 
-    parent_dir(path)               -> dir
-    file_name(path)                -> name
-    name_extension(name)           -> extension
-    name_stem(name)                -> stem
+    parent_dir(path)                -> dir
+    file_name(path)                 -> name
+    name_extension(name)            -> extension
+    name_stem(name)                 -> stem
 
-    exists(path)                   -> True or False
-    is_absolute(path)              -> True or False
-    is_dir(path)                   -> True or False
-    is_file(path)                  -> True or False
-    is_link(path)                  -> True or False
+    exists(path)                    -> True or False
+    is_absolute(path)               -> True or False
+    is_dir(path)                    -> True or False
+    is_file(path)                   -> True or False
+    is_link(path)                   -> True or False
 
-    absolute_path(path)            -> path
-    normalize_path(path)           -> path
+    absolute_path(path)             -> path
+    normalize_path(path)            -> path
 
 ## File operations
 
-    copy(from_path, to_path)
-    move(from_path, to_path)
-    rename(path, expr, replacement)
-    remove(path)
+    copy(from_path, to_path)        -> to_path
+    move(from_path, to_path)        -> to_path
+    rename(path, expr, replacement) -> renamed path
+    remove(path)                    -> path
 
-    read(file)                     -> string
-    write(file, string)
-    append(file, string)
-    prepend(file, string)
-    touch(file)
+    read(file)                      -> string
+    write(file, string)             -> file
+    append(file, string)            -> file
+    prepend(file, string)           -> file
+    touch(file)                     -> file
 
 These variants take a list of unicode strings, one per line.
 
-    read_lines(file)               -> list of strings
-    write_lines(file, lines)
-    append_lines(file, lines)
-    prepend(file, lines)
+    read_lines(file)                -> list of strings
+    write_lines(file, lines)        -> file
+    append_lines(file, lines)       -> file
+    prepend(file, lines)            -> file
 
 These are for stashing named values in a temporary location in the
 filesystem, to make it easy to use those values when you invoke an
 external command.  They return the path of the temporary file.
 
-    make_temp(key)                 -> file
-    open_temp(key, mode="r")       -> Python file object
-    read_temp(key)                 -> string
-    write_temp(key, string)        -> file
-    append_temp(key, string)       -> file
-    prepend_temp(key, string)      -> file
+    make_temp(key)                  -> file
+    open_temp(key, mode="r")        -> Python file object
+    read_temp(key)                  -> string
+    write_temp(key, string)         -> file
+    append_temp(key, string)        -> file
+    prepend_temp(key, string)       -> file
 
 Operations on symlinks.
 
@@ -98,15 +109,16 @@ Operations on symlinks.
 
 ## Directory operations
 
-    make_dir(dir)                  -> dir
-    list_dir(dir, *patterns)       -> sorted list of names
-    change_dir(dir)                -> previous dir
-    current_dir()                  -> dir
-    make_temp_dir()                -> dir
+    change_dir(dir)                 -> previous dir
+    current_dir()                   -> dir
+    home_dir(user="")               -> dir
+    list_dir(dir, *patterns)        -> sorted list of names
+    make_dir(dir)                   -> dir
+    make_temp_dir()                 -> dir
 
 Make a temporary directory that is retained on exit.
 
-    make_user_temp_dir()           -> dir
+    make_user_temp_dir()            -> dir
 
 Temporarily change the current working dir.  This is intended for use
 with the Python `with` construct.
@@ -117,39 +129,37 @@ with the Python `with` construct.
 Get the 0th match from `list_dir(dir, *patterns)`.  Return `None` if
 there's no match.
 
-    first_name(dir, *patterns)     -> name or None
+    first_name(dir, *patterns)      -> name or None
 
 Search a filesystem tree recursively.
 
-    find(dir, *patterns)           -> sorted list of paths
+    find(dir, *patterns)            -> sorted list of paths
 
 Find only one match, and fail if multiple are found.  Return `None` if
 nothing matches.
 
-    find_only_one(dir, *patterns)  -> path or None
+    find_only_one(dir, *patterns)   -> path or None
 
-## Standard paths
+## Processes
 
-    get_home_dir
+    call(command, *args, **options)
+    call_for_output(command, *args, **options) -> string
 
-    get_bin_dir get_sbin_dir get_include_dir get_lib_dir
-
-## String operations
-
-    string_replace
-
-## Process execution
-
-    call, call_for_output
+    exit(message=None, *args)
 
 ## Logging
 
-    fail, error, warn, notice, debug
-
-    exit
+    fail(message, *args)
+    error(message, *args)
+    notice(message, *args)
+    debug(message, *args)
 
 ## Miscellaneous
 
-    make_archive, extract_archive, rename_archive
+    make_archive(input_dir, output_dir, archive_stem) -> output_file
+    extract_archive(archive_file, output_dir) -> output_dir
+    rename_archive(archive_file, new_archive_stem) -> output_file
 
-    random_port
+    random_port(min=49152, max=65535) -> port
+
+    string_replace(string, expr, replacement, count=0) -> string

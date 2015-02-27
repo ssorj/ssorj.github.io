@@ -43,6 +43,18 @@ directories are generally created as needed</li>
 console</li>
 </ul>
 
+<h2 id="example">Example</h2>
+
+<pre><code>    #/usr/bin/env python
+
+    from plano import *
+
+    temp_dir = make_temp_dir()
+    example_file = write(join(temp_dir, "example.a"), "Hello")
+    example_file = move(example_file, join(temp_dir, "example.b"))
+    print read(example_file)
+</code></pre>
+
 <h2 id="parameters">Parameters</h2>
 
 <ul>
@@ -60,65 +72,65 @@ console</li>
 
 <h2 id="environment">Environment</h2>
 
-<pre><code>ENV                            Dictionary of environment variables
-ARGV                           List of command-line arguments; 0th is the executable
-PATH_SEP                       '/' on posix, '\' on windows
-LINE_SEP                       /n on posix, /n/r on windows
+<pre><code>ENV                             Dictionary of environment variables
+ARGS                            List of command-line arguments; the 0th is the executable
+PATH_SEP                        '/' on posix, '\' on windows
+LINE_SEP                        '/n' on posix, '/n/r' on windows
 </code></pre>
 
 <h2 id="path-operations">Path operations</h2>
 
-<pre><code>join(head, tail)               -&gt; path
-split(path)                    -&gt; head, tail
-spit_extension(path)           -&gt; path, extension
+<pre><code>join(head, tail)                -&gt; path
+split(path)                     -&gt; head, tail
+spit_extension(path)            -&gt; path, extension
 
-parent_dir(path)               -&gt; dir
-file_name(path)                -&gt; name
-name_extension(name)           -&gt; extension
-name_stem(name)                -&gt; stem
+parent_dir(path)                -&gt; dir
+file_name(path)                 -&gt; name
+name_extension(name)            -&gt; extension
+name_stem(name)                 -&gt; stem
 
-exists(path)                   -&gt; True or False
-is_absolute(path)              -&gt; True or False
-is_dir(path)                   -&gt; True or False
-is_file(path)                  -&gt; True or False
-is_link(path)                  -&gt; True or False
+exists(path)                    -&gt; True or False
+is_absolute(path)               -&gt; True or False
+is_dir(path)                    -&gt; True or False
+is_file(path)                   -&gt; True or False
+is_link(path)                   -&gt; True or False
 
-absolute_path(path)            -&gt; path
-normalize_path(path)           -&gt; path
+absolute_path(path)             -&gt; path
+normalize_path(path)            -&gt; path
 </code></pre>
 
 <h2 id="file-operations">File operations</h2>
 
-<pre><code>copy(from_path, to_path)
-move(from_path, to_path)
-rename(path, expr, replacement)
-remove(path)
+<pre><code>copy(from_path, to_path)        -&gt; to_path
+move(from_path, to_path)        -&gt; to_path
+rename(path, expr, replacement) -&gt; renamed path
+remove(path)                    -&gt; path
 
-read(file)                     -&gt; string
-write(file, string)
-append(file, string)
-prepend(file, string)
-touch(file)
+read(file)                      -&gt; string
+write(file, string)             -&gt; file
+append(file, string)            -&gt; file
+prepend(file, string)           -&gt; file
+touch(file)                     -&gt; file
 </code></pre>
 
 <p>These variants take a list of unicode strings, one per line.</p>
 
-<pre><code>read_lines(file)               -&gt; list of strings
-write_lines(file, lines)
-append_lines(file, lines)
-prepend(file, lines)
+<pre><code>read_lines(file)                -&gt; list of strings
+write_lines(file, lines)        -&gt; file
+append_lines(file, lines)       -&gt; file
+prepend(file, lines)            -&gt; file
 </code></pre>
 
 <p>These are for stashing named values in a temporary location in the
 filesystem, to make it easy to use those values when you invoke an
 external command.  They return the path of the temporary file.</p>
 
-<pre><code>make_temp(key)                 -&gt; file
-open_temp(key, mode="r")       -&gt; Python file object
-read_temp(key)                 -&gt; string
-write_temp(key, string)        -&gt; file
-append_temp(key, string)       -&gt; file
-prepend_temp(key, string)      -&gt; file
+<pre><code>make_temp(key)                  -&gt; file
+open_temp(key, mode="r")        -&gt; Python file object
+read_temp(key)                  -&gt; string
+write_temp(key, string)         -&gt; file
+append_temp(key, string)        -&gt; file
+prepend_temp(key, string)       -&gt; file
 </code></pre>
 
 <p>Operations on symlinks.</p>
@@ -129,16 +141,17 @@ read_link(file)
 
 <h2 id="directory-operations">Directory operations</h2>
 
-<pre><code>make_dir(dir)                  -&gt; dir
-list_dir(dir, *patterns)       -&gt; sorted list of names
-change_dir(dir)                -&gt; previous dir
-current_dir()                  -&gt; dir
-make_temp_dir()                -&gt; dir
+<pre><code>change_dir(dir)                 -&gt; previous dir
+current_dir()                   -&gt; dir
+home_dir(user="")               -&gt; dir
+list_dir(dir, *patterns)        -&gt; sorted list of names
+make_dir(dir)                   -&gt; dir
+make_temp_dir()                 -&gt; dir
 </code></pre>
 
 <p>Make a temporary directory that is retained on exit.</p>
 
-<pre><code>make_user_temp_dir()           -&gt; dir
+<pre><code>make_user_temp_dir()            -&gt; dir
 </code></pre>
 
 <p>Temporarily change the current working dir.  This is intended for use
@@ -151,49 +164,45 @@ with the Python <code>with</code> construct.</p>
 <p>Get the 0th match from <code>list_dir(dir, *patterns)</code>.  Return <code>None</code> if
 there's no match.</p>
 
-<pre><code>first_name(dir, *patterns)     -&gt; name or None
+<pre><code>first_name(dir, *patterns)      -&gt; name or None
 </code></pre>
 
 <p>Search a filesystem tree recursively.</p>
 
-<pre><code>find(dir, *patterns)           -&gt; sorted list of paths
+<pre><code>find(dir, *patterns)            -&gt; sorted list of paths
 </code></pre>
 
 <p>Find only one match, and fail if multiple are found.  Return <code>None</code> if
 nothing matches.</p>
 
-<pre><code>find_only_one(dir, *patterns)  -&gt; path or None
+<pre><code>find_only_one(dir, *patterns)   -&gt; path or None
 </code></pre>
 
-<h2 id="standard-paths">Standard paths</h2>
+<h2 id="processes">Processes</h2>
 
-<pre><code>get_home_dir
+<pre><code>call(command, *args, **options)
+call_for_output(command, *args, **options) -&gt; string
 
-get_bin_dir get_sbin_dir get_include_dir get_lib_dir
-</code></pre>
-
-<h2 id="string-operations">String operations</h2>
-
-<pre><code>string_replace
-</code></pre>
-
-<h2 id="process-execution">Process execution</h2>
-
-<pre><code>call, call_for_output
+exit(message=None, *args)
 </code></pre>
 
 <h2 id="logging">Logging</h2>
 
-<pre><code>fail, error, warn, notice, debug
-
-exit
+<pre><code>fail(message, *args)
+error(message, *args)
+notice(message, *args)
+debug(message, *args)
 </code></pre>
 
 <h2 id="miscellaneous">Miscellaneous</h2>
 
-<pre><code>make_archive, extract_archive, rename_archive
+<pre><code>make_archive(input_dir, output_dir, archive_stem) -&gt; output_file
+extract_archive(archive_file, output_dir) -&gt; output_dir
+rename_archive(archive_file, new_archive_stem) -&gt; output_file
 
-random_port
+random_port(min=49152, max=65535) -&gt; port
+
+string_replace(string, expr, replacement, count=0) -&gt; string
 </code></pre>
 
       </div>
