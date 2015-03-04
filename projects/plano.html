@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Plano - Justin Ross</title>
+    <title>Plano</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,300italic%7CUbuntu+Mono:400" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="http://www.ssorj.net/site.css" type="text/css"/>
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAN0lEQVQ4y2NgoDH4jwVTbMB/arjgP6k2YrP9P7kG4PUKPicT5X9CTv5PbqhTxQUDl3BGmgEkAwClaVykZYtXsQAAAABJRU5ErkJggg==" type="image/png"/>
-    <script type="text/javascript" src="http://www.ssorj.net/site.js" defer="defer"></script>
+    <link rel="stylesheet" href="http://www.ssorj.net/transom/site.css" type="text/css"/>
+    <script type="text/javascript" src="http://www.ssorj.net/transom/site.js" defer="defer"></script>
   </head>
   <body>
     <div id="-head">
@@ -116,7 +115,7 @@ touch(file)                     -&gt; file
 <pre><code>read_lines(file)                -&gt; list of strings
 write_lines(file, lines)        -&gt; file
 append_lines(file, lines)       -&gt; file
-prepend(file, lines)            -&gt; file
+prepend_lines(file, lines)      -&gt; file
 </code></pre>
 
 <p>These are for stashing named values in a temporary location in the
@@ -133,8 +132,8 @@ prepend_temp(key, string)       -&gt; file
 
 <p>Operations on symlinks.</p>
 
-<pre><code>make_link(source_path, link_file)
-read_link(file)
+<pre><code>make_link(source_path, link_file) -&gt; link_file
+read_link(file)                   -&gt; target_path
 </code></pre>
 
 <h2 id="directory-operations">Directory operations</h2>
@@ -195,8 +194,8 @@ debug(message, *args)
 <h2 id="miscellaneous">Miscellaneous</h2>
 
 <pre><code>make_archive(input_dir, output_dir, archive_stem) -&gt; output_file
-extract_archive(archive_file, output_dir) -&gt; output_dir
-rename_archive(archive_file, new_archive_stem) -&gt; output_file
+extract_archive(archive_file, output_dir)         -&gt; output_dir
+rename_archive(archive_file, new_archive_stem)    -&gt; output_file
 
 random_port(min=49152, max=65535) -&gt; port
 

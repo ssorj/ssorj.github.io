@@ -87,7 +87,7 @@ These variants take a list of unicode strings, one per line.
     read_lines(file)                -> list of strings
     write_lines(file, lines)        -> file
     append_lines(file, lines)       -> file
-    prepend(file, lines)            -> file
+    prepend_lines(file, lines)      -> file
 
 These are for stashing named values in a temporary location in the
 filesystem, to make it easy to use those values when you invoke an
@@ -102,8 +102,8 @@ external command.  They return the path of the temporary file.
 
 Operations on symlinks.
 
-    make_link(source_path, link_file)
-    read_link(file)
+    make_link(source_path, link_file) -> link_file
+    read_link(file)                   -> target_path
 
 ## Directory operations
 
@@ -155,8 +155,8 @@ nothing matches.
 ## Miscellaneous
 
     make_archive(input_dir, output_dir, archive_stem) -> output_file
-    extract_archive(archive_file, output_dir) -> output_dir
-    rename_archive(archive_file, new_archive_stem) -> output_file
+    extract_archive(archive_file, output_dir)         -> output_dir
+    rename_archive(archive_file, new_archive_stem)    -> output_file
 
     random_port(min=49152, max=65535) -> port
 

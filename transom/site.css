@@ -117,10 +117,6 @@ li {
     content: none;
 }
 
-#-links {
-    font-size: 0.9em;
-}
-
 @media screen and (max-width: 720px) {
     .two-column, .three-column, .four-column {
         -webkit-column-count: 2;
