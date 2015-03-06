@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Quirk</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,300italic%7CUbuntu+Mono:400" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="http://www.ssorj.net/transom/site.css" type="text/css"/>
+    <script type="text/javascript" src="http://www.ssorj.net/transom/site.js" defer="defer"></script>
+  </head>
+  <body>
+    <div id="-head">
+      <div id="-head-content">
+        <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Quirk</li></ul>
+      </div>
+    </div>
+    <div id="-body">
+      <div id="-body-content">
+        <h1 id="quirk">Quirk</h1>
+
+<p>Quirk is a tool for installing and testing Qpid source modules.  It is
+intended to help you develop software that uses Qpid modules, and it
+is used to generate and test Qpid releases.</p>
+
+<p><a href="https://github.com/ssorj/quirk">Source code</a>, <a href="http://www.ssorj.net/projects/magnum.html">Packages</a></p>
+
+<h2 id="command-line">Command line</h2>
+
+<p>To see what quirk thinks it's going to do, run the <code>status</code> command.</p>
+
+<pre><code>$ quirk status
+quirk: Starting proton.status
+Module 'proton':
+  source_location:   http://git-wip-us.apache.org/repos/asf/qpid-proton.git
+  source_branch:     master
+  source_dir:        /home/jross/.quirk/output/source/proton
+  build_dir:         /home/jross/.quirk/output/build/proton
+  release_tag:       master-20150123
+Finished proton.status
+Starting dispatch.status
+Module 'dispatch':
+[snip]
+</code></pre>
+
+<p>This will tell you what the module names are and what parameters each
+will use to do its work.</p>
+
+<p>For any command, you can limit the scope of the operation by supplying
+the <code>--module</code> or <code>-m</code> option.  The <code>--module</code> option can be repeated.
+If no modules are specified, all Qpid modules (all the ones reported
+by <code>quirk status</code>) are used.</p>
+
+<pre><code>$ quirk build --module cpp
+$ quirk build -m cpp -m jms
+</code></pre>
+
+<p>Use <code>export</code> to check out module source code, <code>build</code> to compile it,
+and <code>install</code> to deploy it under the install prefix.  The <code>install</code>
+command implies <code>build</code>, which in turn implies <code>export</code>.</p>
+
+<pre><code>$ quirk export        # export
+$ quirk build         # export and build
+$ quirk install       # export, build, and install
+</code></pre>
+
+<p>The <code>release</code> command creates release artifacts.  Use the
+<code>--release-tag</code> option to control the names of the resulting archives
+and their internal root directory.  The default tag is the branch name
+and a date stamp.</p>
+
+<pre><code>$ quirk release --module cpp
+[-&gt; ~/.quirk/output/release/qpid-cpp-trunk-20150306.tar.gz]
+$ quirk release --module cpp --release-tag 0.32-beta
+[-&gt; ~/.quirk/output/release/qpid-cpp-0.32-beta.tar.gz]
+</code></pre>
+
+<p>The <code>test</code> command completes all of the foregoing and runs tests
+against it.</p>
+
+<pre><code>$ quirk test-build    # Implies build
+$ quirk test-install  # Implies install
+$ quirk test-release  # Implies release
+$ quirk test          # test-build, test-install, and test-release
+</code></pre>
+
+<p>The <code>env</code> command produces a shell-compatible environment for
+accessing the installed resources.  You can source this output
+directly into your shell to update the search paths for your session.</p>
+
+<pre><code>$ quirk env
+export LD_LIBRARY_PATH=/home/jross/.quirk/output/install/lib64
+export PATH=/home/jross/.quirk/output/install/bin:/home/jross/.qu [snip]
+export PYTHONPATH=/home/jross/.quirk/output/install/lib64/proton/ [snip]
+$ source &lt;(quirk env)
+</code></pre>
+
+<p>For developers, the main attraction is getting the stuff you want to
+develop against installed and accessible to the shell where you are
+working.</p>
+
+<pre><code>$ quirk install
+[Wait a while]
+$ source &lt;(quirk env)
+$ which qpidd
+~/.quirk/output/install/sbin/qpidd
+$ which qdrouterd
+~/.quirk/output/install/sbin/qdrouterd
+</code></pre>
+
+<p>If your environment is already setup to use an alternate install
+prefix, you can tell quirk to install there.</p>
+
+<pre><code>$ quirk install --prefix ~/.local
+</code></pre>
+
+<p>Quirk may also be used for simple continuous integration setup:</p>
+
+<pre><code>$ quirk test
+$ quirk test --module dispatch
+</code></pre>
+
+<p>To prepare Qpid releases:</p>
+
+<pre><code>[Establish your desired configuration in ~/.quirk/quirk.conf]
+$ quirk clean
+$ quirk test |&amp; tee qpid-0.32-test.log
+$ quirk release --release-tag 0.32 |&amp; tee qpid-0.32-release.log
+[See release artifacts at ~/.quirk/output/release]
+</code></pre>
+
+<h2 id="output">Output</h2>
+
+<p>By default, quirk's output appears under <code>$HOME/.quirk/output</code>.
+Here's what you'll see under there:</p>
+
+<pre><code>source             Source code exports
+build              Build trees
+install            The default installation prefix
+release            Release artifacts
+</code></pre>
+
+<p>The output directory can be overridden using the <code>--output</code> option.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Configuration parameters can be overriden by placing a config file at
+<code>$HOME/.quirk/quirk.conf</code>.  The file content must be valid JSON.</p>
+
+<p>By default, module code is fetched via the web from canonical upstream
+sources.  If you'd prefer to use an existing local checkout, you can
+indicate that with the <code>source_location</code> option.</p>
+
+<pre><code>{
+    "projects": {
+        "qpid": {
+            "modules": {
+                "proton": {
+                    "source_location": "/home/jross/code/proton"
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>Without any configuration, quirk pulls everything from a module's
+trunk or master branch.  Sometimes you don't want trunk--you want an
+alternate branch.  You can specify that with the <code>source_branch</code>
+option.</p>
+
+<pre><code>{
+    "projects": {
+        "qpid": {
+            "modules": {
+                "dispatch": {
+                    "source_branch": "0.2"
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>There are example configurations at
+<a href="https://github.com/ssorj/quirk/tree/master/misc">https://github.com/ssorj/quirk/tree/master/misc</a>.</p>
+
+      </div>
+    </div>
+    <div id="-foot">
+      <div id="-foot-content">
+      </div>
+    </div>
+  </body>
+</html>
