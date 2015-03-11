@@ -2,14 +2,12 @@
 
 Python functions for writing shell-style system scripts.
 
-## Source code
-
-> <https://github.com/ssorj/plano>
+[Source code](https://github.com/ssorj/plano), [Packages](@site-url@/projects/magnum.html#plano)
 
 ## Overview
 
-The notion here is to use the global function namespace for common
-script operations.
+Plano uses the global function namespace to provide shell-like direct
+access to common script operations.
 
  - At this point, this works for posix, not windows
  - The character encoding is always UTF-8, and all strings are treated
