@@ -4,7 +4,7 @@ Quirk is a tool for installing and testing Qpid source modules.  It is
 intended to help you develop software that uses Qpid modules, and it
 is used to generate and test Qpid releases.
 
-[Source code](https://github.com/ssorj/quirk), [Packages](@site-url@/projects/magnum.html#quirk)
+[Source code](https://github.com/ssorj/quirk), [Packages]({{site_url}}/projects/magnum.html#quirk)
 
 ## Command line
 

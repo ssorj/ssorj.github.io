@@ -4,6 +4,6 @@
 
 [LinkedIn profile](https://www.linkedin.com/in/ssorj)
 
-[Projects](@site-url@/projects/index.html)
+[Projects]({{site_url}}/projects/index.html)
 
-[Links](@site-url@/links.html)
+[Links]({{site_url}}/links.html)

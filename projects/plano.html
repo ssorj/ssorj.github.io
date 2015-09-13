@@ -4,7 +4,6 @@
     <title>Plano</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,300italic%7CUbuntu+Mono:400" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://www.ssorj.net/transom/site.css" type="text/css"/>
     <script type="text/javascript" src="http://www.ssorj.net/transom/site.js" defer="defer"></script>
   </head>
@@ -40,12 +39,12 @@ console</li>
 
 <h2 id="example">Example</h2>
 
-<pre><code>    from plano import *
+<pre><code>from plano import *
 
-    temp_dir = make_temp_dir()
-    example_file = write(join(temp_dir, "example.a"), "Hello")
-    example_file = move(example_file, join(temp_dir, "example.b"))
-    print read(example_file)
+temp_dir = make_temp_dir()
+example_file = write(join(temp_dir, "example.a"), "Hello")
+example_file = move(example_file, join(temp_dir, "example.b"))
+print read(example_file)
 </code></pre>
 
 <h2 id="parameters">Parameters</h2>

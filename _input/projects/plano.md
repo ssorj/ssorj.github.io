@@ -2,7 +2,7 @@
 
 Python functions for writing shell-style system scripts.
 
-[Source code](https://github.com/ssorj/plano), [Packages](@site-url@/projects/magnum.html#plano)
+[Source code](https://github.com/ssorj/plano), [Packages]({{site_url}}/projects/magnum.html#plano)
 
 ## Overview
 
@@ -20,12 +20,12 @@ access to common script operations.
 
 ## Example
 
-        from plano import *
-        
-        temp_dir = make_temp_dir()
-        example_file = write(join(temp_dir, "example.a"), "Hello")
-        example_file = move(example_file, join(temp_dir, "example.b"))
-        print read(example_file)
+    from plano import *
+    
+    temp_dir = make_temp_dir()
+    example_file = write(join(temp_dir, "example.a"), "Hello")
+    example_file = move(example_file, join(temp_dir, "example.b"))
+    print read(example_file)
 
 ## Parameters
 

@@ -2,7 +2,7 @@
 
 Transom renders website content from markdown source files.
 
-[Source code](https://github.com/ssorj/transom), [Packages](@site-url@/projects/magnum.html#transom)
+[Source code](https://github.com/ssorj/transom), [Packages]({{site_url}}/projects/magnum.html#transom)
 
 ## Command line
 
@@ -15,7 +15,7 @@ Use the `--site-url` option to control the prefix used for HTML links.
 
     $ transom --site-url "http://ssorj.net" input/ output/
 
-By default, the `site-url` placeholder is set to a filesystem path in
+By default, the `site_url` placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When
 publishing work to a public website root, you'll need to supply the
 appropriate site url.
@@ -30,7 +30,7 @@ Use your editor to create or edit a file under your input directory.
 
 Render the site.
 
-    $ transom input/ /home/jross/output/
+    $ transom input/ output/
 
 Look at the result in your browser by navigating to the output
 location.
@@ -41,8 +41,8 @@ location.
 
 Transom looks for two special files under the input directory.
 
-    $INPUT_DIR/_config.ini     # Custom placeholders
-    $INPUT_DIR/_template.html  # The template for HTML pages
+    $INPUT_DIR/_transom_config.py      # Custom placeholders
+    $INPUT_DIR/_transom_template.html  # The template for HTML pages
 
 These files are not copied to the output.
 
@@ -57,7 +57,7 @@ process.
    template, and copied
  - All other files are simply copied
  - All Markdown, HTML, Javascript, and CSS files undergo substitution
-   for `@placeholders@`
+   for placeholders.
 
 ## Markdown syntax
 
@@ -76,25 +76,20 @@ Fedora it is part of the `emacs-goodies` package.
 
 ## Placeholders
 
-`$INPUT_DIR/_config.ini` can be used to define variables for use in
-any input page.  The values will be substituted on output.
+`$INPUT_DIR/_transom_config.py` can be used to define variables and
+functions for use in any input page.  The values will be evaluated on
+output.
 
-    [main]
-    current-release = 1.0
-    current-release-url = http://example.com/releases/1.0/index.html
+    current_release = "1.0"
+    current_release_url = "http://example.com/releases/1.0/index.html"
 
 The placeholder can then be embedded in any input file.  Placeholders
-are marked with a beginning and ending `@`.
-
-    [@current-release@](@current-release-url@) is the current release
-    
-    <a href="http://example.com/releases/1.0/index.html">1.0</a> is
-    the current release
+are enclosed in double curly braces, `{{` and `}}`.
 
 There are some built-in placeholders for important cases.
 
-    site-url              The URL prefix for your site
-    path-navigation       An HTML list for use in site navigation
+    site_url              The URL prefix for your site
+    path_navigation       An HTML list for use in site navigation
     title                 Positions the template title
     content               Positions the template content
 

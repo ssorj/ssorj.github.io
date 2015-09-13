@@ -4,7 +4,6 @@
     <title>Transom</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,300italic%7CUbuntu+Mono:400" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://www.ssorj.net/transom/site.css" type="text/css"/>
     <script type="text/javascript" src="http://www.ssorj.net/transom/site.js" defer="defer"></script>
   </head>
@@ -35,7 +34,7 @@ directory.</p>
 <pre><code>$ transom --site-url "http://ssorj.net" input/ output/
 </code></pre>
 
-<p>By default, the <code>site-url</code> placeholder is set to a filesystem path in
+<p>By default, the <code>site_url</code> placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When
 publishing work to a public website root, you'll need to supply the
 appropriate site url.</p>
@@ -51,7 +50,7 @@ appropriate site url.</p>
 
 <p>Render the site.</p>
 
-<pre><code>$ transom input/ /home/jross/output/
+<pre><code>$ transom input/ output/
 </code></pre>
 
 <p>Look at the result in your browser by navigating to the output
@@ -64,8 +63,8 @@ location.</p>
 
 <p>Transom looks for two special files under the input directory.</p>
 
-<pre><code>$INPUT_DIR/_config.ini     # Custom placeholders
-$INPUT_DIR/_template.html  # The template for HTML pages
+<pre><code>$INPUT_DIR/_transom_config.py      # Custom placeholders
+$INPUT_DIR/_transom_template.html  # The template for HTML pages
 </code></pre>
 
 <p>These files are not copied to the output.</p>
@@ -82,7 +81,7 @@ process.</p>
 template, and copied</li>
 <li>All other files are simply copied</li>
 <li>All Markdown, HTML, Javascript, and CSS files undergo substitution
-for <code>@placeholders@</code></li>
+for placeholders.</li>
 </ul>
 
 <h2 id="markdown-syntax">Markdown syntax</h2>
@@ -98,27 +97,21 @@ Fedora it is part of the <code>emacs-goodies</code> package.</p>
 
 <h2 id="placeholders">Placeholders</h2>
 
-<p><code>$INPUT_DIR/_config.ini</code> can be used to define variables for use in
-any input page.  The values will be substituted on output.</p>
+<p><code>$INPUT_DIR/_transom_config.py</code> can be used to define variables and
+functions for use in any input page.  The values will be evaluated on
+output.</p>
 
-<pre><code>[main]
-current-release = 1.0
-current-release-url = http://example.com/releases/1.0/index.html
+<pre><code>current_release = "1.0"
+current_release_url = "http://example.com/releases/1.0/index.html"
 </code></pre>
 
 <p>The placeholder can then be embedded in any input file.  Placeholders
-are marked with a beginning and ending <code>@</code>.</p>
-
-<pre><code>[@current-release@](@current-release-url@) is the current release
-
-&lt;a href="http://example.com/releases/1.0/index.html"&gt;1.0&lt;/a&gt; is
-the current release
-</code></pre>
+are enclosed in double curly braces, <code>{{</code> and <code>}}</code>.</p>
 
 <p>There are some built-in placeholders for important cases.</p>
 
-<pre><code>site-url              The URL prefix for your site
-path-navigation       An HTML list for use in site navigation
+<pre><code>site_url              The URL prefix for your site
+path_navigation       An HTML list for use in site navigation
 title                 Positions the template title
 content               Positions the template content
 </code></pre>
