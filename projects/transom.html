@@ -10,7 +10,7 @@
   <body>
     <div id="-head">
       <div id="-head-content">
-        <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Home</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Transom</li></ul>
+        <ul id="-path-navigation"><li><a href="http://www.ssorj.net/index.html">Justin Ross</a></li><li><a href="http://www.ssorj.net/projects/index.html">Projects</a></li><li>Transom</li></ul>
       </div>
     </div>
     <div id="-body">
@@ -36,7 +36,7 @@ directory.</p>
 
 <p>By default, the <code>site_url</code> placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When
-publishing work to a public website root, you'll need to supply the
+publishing work to a public website root, you&#8217;ll need to supply the
 appropriate site url.</p>
 
 <p>Use the <code>--verbose</code> option to see lots of logging.</p>
@@ -106,14 +106,15 @@ current_release_url = "http://example.com/releases/1.0/index.html"
 </code></pre>
 
 <p>The placeholder can then be embedded in any input file.  Placeholders
-are enclosed in double curly braces, <code>{{</code> and <code>}}</code>.</p>
+are enclosed in double curly braces, as in
+<code>&#123;&#123;current_release&#125;&#125;</code>.</p>
 
 <p>There are some built-in placeholders for important cases.</p>
 
-<pre><code>site_url              The URL prefix for your site
-path_navigation       An HTML list for use in site navigation
-title                 Positions the template title
-content               Positions the template content
+<pre><code>&#123;&#123;site_url&#125;&#125;              The URL prefix for your site
+&#123;&#123;path_navigation&#125;&#125;       An HTML list for use in site navigation
+&#123;&#123;title&#125;&#125;                 Positions the template title
+&#123;&#123;content&#125;&#125;               Positions the template content
 </code></pre>
 
       </div>

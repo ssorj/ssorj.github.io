@@ -9,7 +9,7 @@ Transom renders website content from markdown source files.
 The `transom` command-line tool takes an input directory and an output
 directory.
 
-    $ transom your-input-dir/ your-output-dir/
+    $ transom some-input-dir/ some-output-dir/
     
 Use the `--site-url` option to control the prefix used for HTML links.
 
@@ -84,14 +84,16 @@ output.
     current_release_url = "http://example.com/releases/1.0/index.html"
 
 The placeholder can then be embedded in any input file.  Placeholders
-are enclosed in double curly braces, `{{` and `}}`.
+are enclosed in double curly braces, as in
+<code>&#123;&#123;current_release&#125;&#125;</code>.
 
 There are some built-in placeholders for important cases.
 
-    site_url              The URL prefix for your site
-    path_navigation       An HTML list for use in site navigation
-    title                 Positions the template title
-    content               Positions the template content
+<pre><code>&#123;&#123;site_url&#125;&#125;              The URL prefix for your site
+&#123;&#123;path_navigation&#125;&#125;       An HTML list for use in site navigation
+&#123;&#123;title&#125;&#125;                 Positions the template title
+&#123;&#123;content&#125;&#125;               Positions the template content
+</code></pre>
 
 ;; ## Checking links
 ;; 
