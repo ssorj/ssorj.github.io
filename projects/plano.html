@@ -37,16 +37,6 @@ directories are generally created as needed</li>
 console</li>
 </ul>
 
-<h2 id="example">Example</h2>
-
-<pre><code>from plano import *
-
-temp_dir = make_temp_dir()
-example_file = write(join(temp_dir, "example.a"), "Hello")
-example_file = move(example_file, join(temp_dir, "example.b"))
-print read(example_file)
-</code></pre>
-
 <h2 id="parameters">Parameters</h2>
 
 <ul>
@@ -163,8 +153,8 @@ with the Python <code>with</code> construct.</p>
 <pre><code>find_any_one(dir, *patterns)    -&gt; path or None
 </code></pre>
 
-<p>Find only one match, and <em>fail</em> if multiple are found.  Return <code>None</code>
-if nothing matches.</p>
+<p>Find one match, and <em>fail</em> if multiple are found.  Return <code>None</code> if
+nothing matches.</p>
 
 <pre><code>find_only_one(dir, *patterns)   -&gt; path or None
 </code></pre>

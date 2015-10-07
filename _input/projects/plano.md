@@ -18,15 +18,6 @@ access to common script operations.
  - And don't be shy about talking about what you're doing on the
    console
 
-## Example
-
-    from plano import *
-    
-    temp_dir = make_temp_dir()
-    example_file = write(join(temp_dir, "example.a"), "Hello")
-    example_file = move(example_file, join(temp_dir, "example.b"))
-    print read(example_file)
-
 ## Parameters
 
  - `path` is a string path to a file or directory
@@ -133,8 +124,8 @@ Find any one match.  Return `None` if nothing matches.
 
     find_any_one(dir, *patterns)    -> path or None
 
-Find only one match, and *fail* if multiple are found.  Return `None`
-if nothing matches.
+Find one match, and *fail* if multiple are found.  Return `None` if
+nothing matches.
 
     find_only_one(dir, *patterns)   -> path or None
 
