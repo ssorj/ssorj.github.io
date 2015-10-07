@@ -116,23 +116,25 @@ Make a temporary directory that is retained on exit.
 
     make_user_temp_dir()            -> dir
 
+;; make_user_temp_dir(key)
+;; remove_user_temp_dir(key)
+
 Temporarily change the current working dir.  This is intended for use
 with the Python `with` construct.
 
     with working_dir(dir):
         assert current_dir() == dir
 
-Get the 0th match from `list_dir(dir, *patterns)`.  Return `None` if
-there's no match.
-
-    first_name(dir, *patterns)      -> name or None
-
 Search a filesystem tree recursively.
 
     find(dir, *patterns)            -> sorted list of paths
 
-Find only one match, and fail if multiple are found.  Return `None` if
-nothing matches.
+Find any one match.  Return `None` if nothing matches.
+
+    find_any_one(dir, *patterns)    -> path or None
+
+Find only one match, and *fail* if multiple are found.  Return `None`
+if nothing matches.
 
     find_only_one(dir, *patterns)   -> path or None
 

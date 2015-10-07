@@ -153,19 +153,18 @@ with the Python <code>with</code> construct.</p>
     assert current_dir() == dir
 </code></pre>
 
-<p>Get the 0th match from <code>list_dir(dir, *patterns)</code>.  Return <code>None</code> if
-there&#8217;s no match.</p>
-
-<pre><code>first_name(dir, *patterns)      -&gt; name or None
-</code></pre>
-
 <p>Search a filesystem tree recursively.</p>
 
 <pre><code>find(dir, *patterns)            -&gt; sorted list of paths
 </code></pre>
 
-<p>Find only one match, and fail if multiple are found.  Return <code>None</code> if
-nothing matches.</p>
+<p>Find any one match.  Return <code>None</code> if nothing matches.</p>
+
+<pre><code>find_any_one(dir, *patterns)    -&gt; path or None
+</code></pre>
+
+<p>Find only one match, and <em>fail</em> if multiple are found.  Return <code>None</code>
+if nothing matches.</p>
 
 <pre><code>find_only_one(dir, *patterns)   -&gt; path or None
 </code></pre>
