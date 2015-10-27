@@ -27,7 +27,7 @@
 access to common script operations.</p>
 
 <ul>
-<li>At this point, this works for posix, not windows</li>
+<li>At this point, this works for Posix, not Windows</li>
 <li>The character encoding is always UTF-8, and all strings are treated
 as unicode</li>
 <li>All temporary files are cleaned up on exit</li>
@@ -161,10 +161,17 @@ nothing matches.</p>
 
 <h2 id="processes">Processes</h2>
 
+<p>Execute a shell command.  The command is a format string filled using
+<code>args</code>.  <code>subprocess.CalledProcessError</code> is raised on error.</p>
+
 <pre><code>call(command, *args, **options)
 call_for_output(command, *args, **options) -&gt; string
+</code></pre>
 
-exit(message=None, *args)
+<p>End the process.  Exits with process exit code 0 on no message; exits
+with 1 if a message is set.</p>
+
+<pre><code>exit(message=None, *args)
 </code></pre>
 
 <h2 id="logging">Logging</h2>

@@ -9,7 +9,7 @@ Python functions for writing shell-style system scripts.
 Plano uses the global function namespace to provide shell-like direct
 access to common script operations.
 
- - At this point, this works for posix, not windows
+ - At this point, this works for Posix, not Windows
  - The character encoding is always UTF-8, and all strings are treated
    as unicode
  - All temporary files are cleaned up on exit
@@ -131,8 +131,14 @@ nothing matches.
 
 ## Processes
 
+Execute a shell command.  The command is a format string filled using
+`args`.  `subprocess.CalledProcessError` is raised on error.
+
     call(command, *args, **options)
     call_for_output(command, *args, **options) -> string
+
+End the process.  Exits with process exit code 0 on no message; exits
+with 1 if a message is set.
 
     exit(message=None, *args)
 
