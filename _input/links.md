@@ -6,9 +6,11 @@
 
  - [Bash manual](https://www.gnu.org/software/bash/manual/html_node/)
  - [CSS2 spec](http://www.w3.org/TR/CSS2/)
+ - [Epoch converter](http://www.epochconverter.com/)
  - [HTML5 spec](http://www.w3.org/TR/html5/)
  - [Java library reference](http://docs.oracle.com/javase/8/docs/api/index.html)
  - [Javascript DOM](http://krook.org/jsdom/)
+ - [JSON pretty printer](http://jsonprettyprint.com/)
  - [Make manual](https://www.gnu.org/software/make/manual/html_node/index.html)
  - [Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
  - [Python 2 library reference](https://docs.python.org/2/library/)
