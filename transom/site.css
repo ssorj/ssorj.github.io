@@ -19,8 +19,6 @@
  *
  */
 
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600|Ubuntu+Mono:400);
-
 * {
     margin: 1em 0;
     padding: 0;
@@ -263,6 +261,10 @@ section {
 
 #-path-navigation > li:last-child:after {
     content: none;
+}
+
+#-global-navigation {
+    float: right;
 }
 
 @media screen and (max-width: 720px) {

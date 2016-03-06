@@ -4,8 +4,11 @@
     <title>Quirk</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600,600italic|Ubuntu+Mono:400" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://www.ssorj.net/transom/site.css" type="text/css"/>
+    <link rel="icon" href="" type="image/png"/>
     <script type="text/javascript" src="http://www.ssorj.net/transom/site.js" defer="defer"></script>
+    
   </head>
   <body>
     <div id="-head">
@@ -25,7 +28,7 @@ is used to generate and test Qpid releases.</p>
 
 <h2 id="command-line">Command line</h2>
 
-<p>To see what quirk thinks it&#8217;s going to do, run the <code>status</code> command.</p>
+<p>To see what quirk thinks it's going to do, run the <code>status</code> command.</p>
 
 <pre><code>$ quirk status
 quirk: Starting proton.status
@@ -129,8 +132,8 @@ $ quirk release --release-tag 0.32 |&amp; tee qpid-0.32-release.log
 
 <h2 id="output">Output</h2>
 
-<p>By default, quirk&#8217;s output appears under <code>$HOME/.quirk/output</code>.
-Here&#8217;s what you&#8217;ll see under there:</p>
+<p>By default, quirk's output appears under <code>$HOME/.quirk/output</code>.
+Here's what you'll see under there:</p>
 
 <pre><code>source             Source code exports
 build              Build trees
@@ -146,7 +149,7 @@ release            Release artifacts
 <code>$HOME/.quirk/quirk.conf</code>.  The file content must be valid JSON.</p>
 
 <p>By default, module code is fetched via the web from canonical upstream
-sources.  If you&#8217;d prefer to use an existing local checkout, you can
+sources.  If you'd prefer to use an existing local checkout, you can
 indicate that with the <code>source_location</code> option.</p>
 
 <pre><code>{
@@ -162,8 +165,8 @@ indicate that with the <code>source_location</code> option.</p>
 }
 </code></pre>
 
-<p>Without any configuration, quirk pulls everything from a module&#8217;s
-trunk or master branch.  Sometimes you don&#8217;t want trunk&#8211;you want an
+<p>Without any configuration, quirk pulls everything from a module's
+trunk or master branch.  Sometimes you don't want trunk--you want an
 alternate branch.  You can specify that with the <code>source_branch</code>
 option.</p>
 

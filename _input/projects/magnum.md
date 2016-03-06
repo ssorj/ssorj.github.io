@@ -9,7 +9,7 @@ packages.  I use them on various versions of Fedora.
 
 You only need to do this once to setup the repository on your machine.
 
-    $ sudo rpm -i http://people.apache.org/~jross/magnum/noarch/magnum-release-1-1.noarch.rpm
+    $ sudo rpm -i http://a.ssorj.net/magnum/noarch/magnum-release-2-1.noarch.rpm
 
 ## Plano
 
@@ -25,7 +25,7 @@ You only need to do this once to setup the repository on your machine.
 
 ## Links
 
-[Magnum release RPM](http://people.apache.org/~jross/magnum/noarch/magnum-release-1-1.noarch.rpm)
+[Magnum release RPM](http://a.ssorj.net/magnum/noarch/magnum-release-2-1.noarch.rpm)
 
-[Yum repository](http://people.apache.org/~jross/magnum/noarch)
+[Yum repository](http://a.ssorj.net/magnum/noarch)
 
