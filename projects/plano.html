@@ -22,7 +22,7 @@
 
 <p>Python functions for writing shell-style system scripts.</p>
 
-<p><a href="https://github.com/ssorj/plano">Source code</a>, <a href="http://www.ssorj.net/projects/magnum.html#plano">Packages</a></p>
+<p><a href="https://github.com/ssorj/plano">Source code</a></p>
 
 <h2 id="overview">Overview</h2>
 
@@ -40,7 +40,33 @@ directories are generally created as needed</li>
 console</li>
 </ul>
 
-<h2 id="parameters">Parameters</h2>
+<h2 id="installation">Installation</h2>
+
+<h3 id="using-fedora-packages">Using Fedora packages</h3>
+
+<p>Use the <code>dnf</code> command to download and install the Fedora package.</p>
+
+<pre><code>$ sudo dnf copr enable jross/ssorj
+$ sudo dnf install python-plano
+</code></pre>
+
+<h3 id="installing-from-source">Installing from source</h3>
+
+<p>Use the <code>git</code> command to download the source.  Use <code>make</code> to run the
+install procedure.</p>
+
+<pre><code>$ git clone https://github.com/ssorj/plano.git
+$ cd plano/
+$ make install
+</code></pre>
+
+<p>The default install location is <code>$HOME/.local</code>. Use the <code>PREFIX</code>
+argument to change it.</p>
+
+<pre><code>$ sudo make install PREFIX=/usr/local
+</code></pre>
+
+<h2 id="standard-parameter-names">Standard parameter names</h2>
 
 <ul>
 <li><code>path</code> is a string path to a file or directory</li>

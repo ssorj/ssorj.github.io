@@ -22,7 +22,33 @@
 
 <p>Transom renders website content from markdown source files.</p>
 
-<p><a href="https://github.com/ssorj/transom">Source code</a>, <a href="http://www.ssorj.net/projects/magnum.html#transom">Packages</a></p>
+<p><a href="https://github.com/ssorj/transom">Source code</a></p>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="using-fedora-packages">Using Fedora packages</h3>
+
+<p>Use the <code>dnf</code> command to download and install the Fedora package.</p>
+
+<pre><code>$ sudo dnf copr enable jross/ssorj
+$ sudo dnf install transom
+</code></pre>
+
+<h3 id="installing-from-source">Installing from source</h3>
+
+<p>Use the <code>git</code> command to download the source.  Use <code>make</code> to run the
+install procedure.</p>
+
+<pre><code>$ git clone https://github.com/ssorj/transom.git
+$ cd transom/
+$ make install
+</code></pre>
+
+<p>The default install location is <code>$HOME/.local</code>. Use the <code>PREFIX</code>
+argument to change it.</p>
+
+<pre><code>$ sudo make install PREFIX=/usr/local
+</code></pre>
 
 <h2 id="command-line">Command line</h2>
 

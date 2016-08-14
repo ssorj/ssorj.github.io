@@ -48,7 +48,7 @@
 
  - [Camelcamelcamel](http://camelcamelcamel.com/)
  - [Gist](https://gist.github.com/)
- - [Google fonts](https://www.google.com/fonts)
+ - [Google fonts](https://fonts.google.com/)
  - [Ipsum generator](http://www.commercekitchen.com/whedon-ipsum/)
  - [Setup SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)
  - [US time](http://www.time.gov/)

@@ -2,7 +2,7 @@
 
 Python functions for writing shell-style system scripts.
 
-[Source code](https://github.com/ssorj/plano), [Packages]({{site_url}}/projects/magnum.html#plano)
+[Source code](https://github.com/ssorj/plano)
 
 ## Overview
 
@@ -18,7 +18,30 @@ access to common script operations.
  - And don't be shy about talking about what you're doing on the
    console
 
-## Parameters
+## Installation
+
+### Using Fedora packages
+
+Use the `dnf` command to download and install the Fedora package.
+
+    $ sudo dnf copr enable jross/ssorj
+    $ sudo dnf install python-plano
+
+### Installing from source
+
+Use the `git` command to download the source.  Use `make` to run the
+install procedure.
+
+    $ git clone https://github.com/ssorj/plano.git
+    $ cd plano/
+    $ make install
+
+The default install location is `$HOME/.local`. Use the `PREFIX`
+argument to change it.
+
+    $ sudo make install PREFIX=/usr/local
+
+## Standard parameter names
 
  - `path` is a string path to a file or directory
  - `dir` is a path to a directory
