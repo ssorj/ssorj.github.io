@@ -38,7 +38,7 @@
 
 ## Personal
 
- - [Apache people page](http://people.apache.org/~jross/)
+ - [Apache home page](http://home.apache.org/~jross/)
  - [GitHub profile](https://github.com/ssorj)
  - [LinkedIn profile](https://www.linkedin.com/in/ssorj)
  - [Google Drive files](https://drive.google.com/drive/#folders/0B7GmVtK1EBOMSEE0UkRxVkJiUmc)
