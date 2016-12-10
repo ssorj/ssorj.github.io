@@ -33,11 +33,10 @@ access to common script operations.</p>
 <li>At this point, this works for Posix, not Windows</li>
 <li>The character encoding is always UTF-8, and all strings are treated
 as unicode</li>
-<li>All temporary files are cleaned up on exit</li>
+<li>Temporary files are cleaned up on exit</li>
 <li>As a matter of philosophy, don't fuss, just do it; for instance,
 directories are generally created as needed</li>
-<li>And don't be shy about talking about what you're doing on the
-console</li>
+<li>Don't be shy about talking about what you're doing on the console</li>
 </ul>
 
 <h2 id="installation">Installation</h2>
@@ -78,6 +77,7 @@ argument to change it.</p>
 <li><code>pattern</code> is a shell glob, a la <code>*.py</code></li>
 <li><code>expr</code> is a regular expression</li>
 <li><code>command</code> is something we pass to the shell</li>
+<li><code>proc</code> is a process object</li>
 <li><code>string</code> is a unicode string</li>
 </ul>
 
@@ -122,6 +122,7 @@ write(file, string)             -&gt; file
 append(file, string)            -&gt; file
 prepend(file, string)           -&gt; file
 touch(file)                     -&gt; file
+tail(file, nlines)              -&gt; string
 </code></pre>
 
 <p>These variants take a list of unicode strings, one per line.</p>
@@ -130,18 +131,7 @@ touch(file)                     -&gt; file
 write_lines(file, lines)        -&gt; file
 append_lines(file, lines)       -&gt; file
 prepend_lines(file, lines)      -&gt; file
-</code></pre>
-
-<p>These are for stashing named values in a temporary location in the
-filesystem, to make it easy to use those values when you invoke an
-external command.  They return the path of the temporary file.</p>
-
-<pre><code>make_temp(key)                  -&gt; file
-open_temp(key, mode="r")        -&gt; Python file object
-read_temp(key)                  -&gt; string
-write_temp(key, string)         -&gt; file
-append_temp(key, string)        -&gt; file
-prepend_temp(key, string)       -&gt; file
+tail_lines(file, nlines)        -&gt; list of strings
 </code></pre>
 
 <p>Operations on symlinks.</p>
@@ -157,12 +147,6 @@ current_dir()                   -&gt; dir
 home_dir(user="")               -&gt; dir
 list_dir(dir, *patterns)        -&gt; sorted list of names
 make_dir(dir)                   -&gt; dir
-make_temp_dir()                 -&gt; dir
-</code></pre>
-
-<p>Make a temporary directory that is retained on exit.</p>
-
-<pre><code>make_user_temp_dir()            -&gt; dir
 </code></pre>
 
 <p>Temporarily change the current working dir.  This is intended for use
@@ -188,38 +172,80 @@ nothing matches.</p>
 <pre><code>find_only_one(dir, *patterns)   -&gt; path or None
 </code></pre>
 
+<h2 id="temporary-files-and-directories">Temporary files and directories</h2>
+
+<pre><code>make_temp_file()                -&gt; file
+make_temp_dir()                 -&gt; dir
+</code></pre>
+
+<p>Make a temporary directory that is retained on exit.</p>
+
+<pre><code>make_user_temp_dir()            -&gt; dir
+</code></pre>
+
 <h2 id="processes">Processes</h2>
 
 <p>Execute a shell command.  The command is a format string filled using
-<code>args</code>.  <code>subprocess.CalledProcessError</code> is raised on error.</p>
+<code>args</code>.</p>
+
+<pre><code>start_process(command, *args, **options) -&gt; proc
+wait_for_process(proc)
+stop_process(proc)
+
+call_for_exit_code(command, *args, **options) -&gt; exit code
+</code></pre>
+
+<p>These raise <code>CalledProcessError</code> on failure.</p>
 
 <pre><code>call(command, *args, **options)
 call_for_output(command, *args, **options) -&gt; string
 </code></pre>
 
-<p>End the process.  Exits with process exit code 0 on no message; exits
-with 1 if a message is set.</p>
+<p>End the current process.  With no arguments, exits with process exit
+code 0.  Exits with 1 if <code>arg</code> is a string error message.  Exits with
+the given code if <code>arg</code> is an integer.</p>
 
-<pre><code>exit(message=None, *args)
+<pre><code>exit(arg=None, *args)
 </code></pre>
 
 <h2 id="logging">Logging</h2>
 
 <pre><code>fail(message, *args)
 error(message, *args)
+warn(message, *args)
 notice(message, *args)
 debug(message, *args)
 </code></pre>
 
+<p>Configure log output.  Message level is <code>"debug"</code>, <code>"notice"</code>,
+<code>"warn"</code>, or <code>"error"</code>.  The default output is standard error, and the
+default threshold is <code>"notice"</code>.</p>
+
+<pre><code>set_message_output(writeable)
+set_message_threshold(level)
+</code></pre>
+
 <h2 id="miscellaneous">Miscellaneous</h2>
 
-<pre><code>make_archive(input_dir, output_dir, archive_stem) -&gt; output_file
+<pre><code>sleep(seconds)
+
+make_archive(input_dir, output_dir, archive_stem) -&gt; output file
 extract_archive(archive_file, output_dir)         -&gt; output_dir
-rename_archive(archive_file, new_archive_stem)    -&gt; output_file
+rename_archive(archive_file, new_archive_stem)    -&gt; output file
 
 random_port(min=49152, max=65535) -&gt; port
 
 string_replace(string, expr, replacement, count=0) -&gt; string
+</code></pre>
+
+<p>Get the executable name of the current process or <code>command</code>.</p>
+
+<pre><code>program_name(command=None)
+</code></pre>
+
+<p>Flush standard output and error.</p>
+
+<pre><code>flush()
 </code></pre>
 
       </div>

@@ -12,11 +12,10 @@ access to common script operations.
  - At this point, this works for Posix, not Windows
  - The character encoding is always UTF-8, and all strings are treated
    as unicode
- - All temporary files are cleaned up on exit
+ - Temporary files are cleaned up on exit
  - As a matter of philosophy, don't fuss, just do it; for instance,
    directories are generally created as needed
- - And don't be shy about talking about what you're doing on the
-   console
+ - Don't be shy about talking about what you're doing on the console
 
 ## Installation
 
@@ -52,6 +51,7 @@ argument to change it.
  - `pattern` is a shell glob, a la `*.py`
  - `expr` is a regular expression
  - `command` is something we pass to the shell
+ - `proc` is a process object
  - `string` is a unicode string
 
 ## Environment
@@ -93,6 +93,7 @@ argument to change it.
     append(file, string)            -> file
     prepend(file, string)           -> file
     touch(file)                     -> file
+    tail(file, nlines)              -> string
 
 These variants take a list of unicode strings, one per line.
 
@@ -100,17 +101,7 @@ These variants take a list of unicode strings, one per line.
     write_lines(file, lines)        -> file
     append_lines(file, lines)       -> file
     prepend_lines(file, lines)      -> file
-
-These are for stashing named values in a temporary location in the
-filesystem, to make it easy to use those values when you invoke an
-external command.  They return the path of the temporary file.
-
-    make_temp(key)                  -> file
-    open_temp(key, mode="r")        -> Python file object
-    read_temp(key)                  -> string
-    write_temp(key, string)         -> file
-    append_temp(key, string)        -> file
-    prepend_temp(key, string)       -> file
+    tail_lines(file, nlines)        -> list of strings
 
 Operations on symlinks.
 
@@ -124,14 +115,6 @@ Operations on symlinks.
     home_dir(user="")               -> dir
     list_dir(dir, *patterns)        -> sorted list of names
     make_dir(dir)                   -> dir
-    make_temp_dir()                 -> dir
-
-Make a temporary directory that is retained on exit.
-
-    make_user_temp_dir()            -> dir
-
-;; make_user_temp_dir(key)
-;; remove_user_temp_dir(key)
 
 Temporarily change the current working dir.  This is intended for use
 with the Python `with` construct.
@@ -152,32 +135,68 @@ nothing matches.
 
     find_only_one(dir, *patterns)   -> path or None
 
+## Temporary files and directories
+
+    make_temp_file()                -> file
+    make_temp_dir()                 -> dir
+
+Make a temporary directory that is retained on exit.
+
+    make_user_temp_dir()            -> dir
+
 ## Processes
 
 Execute a shell command.  The command is a format string filled using
-`args`.  `subprocess.CalledProcessError` is raised on error.
+`args`.
+
+    start_process(command, *args, **options) -> proc
+    wait_for_process(proc)
+    stop_process(proc)
+
+    call_for_exit_code(command, *args, **options) -> exit code
+
+These raise `CalledProcessError` on failure.
 
     call(command, *args, **options)
     call_for_output(command, *args, **options) -> string
 
-End the process.  Exits with process exit code 0 on no message; exits
-with 1 if a message is set.
+End the current process.  With no arguments, exits with process exit
+code 0.  Exits with 1 if `arg` is a string error message.  Exits with
+the given code if `arg` is an integer.
 
-    exit(message=None, *args)
+    exit(arg=None, *args)
 
 ## Logging
 
     fail(message, *args)
     error(message, *args)
+    warn(message, *args)
     notice(message, *args)
     debug(message, *args)
 
+Configure log output.  Message level is `"debug"`, `"notice"`,
+`"warn"`, or `"error"`.  The default output is standard error, and the
+default threshold is `"notice"`.
+
+    set_message_output(writeable)
+    set_message_threshold(level)
+
 ## Miscellaneous
 
-    make_archive(input_dir, output_dir, archive_stem) -> output_file
+    sleep(seconds)
+
+    make_archive(input_dir, output_dir, archive_stem) -> output file
     extract_archive(archive_file, output_dir)         -> output_dir
-    rename_archive(archive_file, new_archive_stem)    -> output_file
+    rename_archive(archive_file, new_archive_stem)    -> output file
 
     random_port(min=49152, max=65535) -> port
 
     string_replace(string, expr, replacement, count=0) -> string
+
+Get the executable name of the current process or `command`.
+
+    program_name(command=None)
+
+Flush standard output and error.
+
+    flush()

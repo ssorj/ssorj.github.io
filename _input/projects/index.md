@@ -1,9 +1,9 @@
 # Projects
 
-;;blinky
 ;;brbn
 ;;pumpjack
-;;quiver
+
+[Blinky](https://github.com/ssorj/blinky) - Aggregate and display the status of CI jobs
 
 [Plano](plano.html) - "Shell" scripting in Python
 
@@ -11,7 +11,9 @@
 
 [Quirk](quirk.html) - Test and release Qpid source modules
 
-[Qpid website](https://git-wip-us.apache.org/repos/asf?p=qpid-site.git;a=tree)
+[Quiver](https://github.com/ssorj/quiver) - Test the performance of messaging clients and servers
+
+[Qpid website](https://git-wip-us.apache.org/repos/asf?p=qpid-site.git;a=blob;f=README.md;hb=HEAD)
 
 [Fedora packages on Copr](https://copr.fedorainfracloud.org/coprs/jross/ssorj/)
 
