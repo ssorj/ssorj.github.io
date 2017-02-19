@@ -8,13 +8,13 @@
 
 [Brbn](https://github.com/ssorj/brbn) - Brbn serves HTTP requests
 
-[Dozer](https://github.com/ssorj/dozer) - Install and test ActiveMQ and Qpid source modules
-
 [Plano](plano.html) - "Shell" scripting in Python
 
 [Porkpie](https://github.com/ssorj/porkpie) - Scripts to generate Fedora source RPMs
 
 [Pumpjack](https://github.com/ssorj/pumpjack) - Document multilingual APIs
+
+[Rivet](rivet.html) - Install and test ActiveMQ and Qpid source modules
 
 [Transom](transom.html) - Render websites from markdown
 
