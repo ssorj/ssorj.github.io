@@ -2,7 +2,6 @@
 
 ;; ghost
 ;; haystack
-;; qtools
 
 [Blinky](https://github.com/ssorj/blinky) - Aggregate and display the status of CI jobs
 
@@ -21,6 +20,8 @@
 [Quiver](https://github.com/ssorj/quiver) - Test the performance of messaging clients and servers
 
 [Qpid website](https://git-wip-us.apache.org/repos/asf?p=qpid-site.git;a=blob;f=README.md;hb=HEAD)
+
+[Qtools](https://github.com/ssorj/qtools) - Command-line tools for sending and receiving AMQP messages
 
 [Fedora packages on Copr](https://copr.fedorainfracloud.org/coprs/jross/ssorj/)
 
