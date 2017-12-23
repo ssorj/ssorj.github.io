@@ -9,13 +9,12 @@ Python functions for writing shell-style system scripts.
 Plano uses the global function namespace to provide shell-like direct
 access to common script operations.
 
- - At this point, this works for Posix, not Windows
  - The character encoding is always UTF-8, and all strings are treated
-   as unicode
- - Temporary files are cleaned up on exit
- - As a matter of philosophy, don't fuss, just do it; for instance,
-   directories are generally created as needed
- - Don't be shy about talking about what you're doing on the console
+   as unicode.
+ - Temporary files and directories are cleaned up on exit unless there was an error.
+ - As a matter of philosophy, Plano functions don't fuss, they just make it happen.  For instance,
+   directories are generally created as needed.
+ - Plano isn't shy about talking about what it's doing on the console.
 
 ## Installation
 
@@ -33,26 +32,28 @@ install procedure.
 
     $ git clone https://github.com/ssorj/plano.git
     $ cd plano/
-    $ make install
+    $ make
+    $ make install
 
 The default install location is `$HOME/.local`. Use the `PREFIX`
 argument to change it.
+    
+    $ make PREFIX=/usr/local
+    $ sudo make install
 
-    $ sudo make install PREFIX=/usr/local
+## Conventions for parameter names
 
-## Standard parameter names
-
- - `path` is a string path to a file or directory
- - `dir` is a path to a directory
- - `file` is a path to a file
- - `name` is the file or directory name without any preceding path
- - `extension` is the last dotted segment of a name, as in `.jar`, `.patch`
- - `stem` is the name without its extension
- - `pattern` is a shell glob, a la `*.py`
- - `expr` is a regular expression
- - `command` is something we pass to the shell
- - `proc` is a process object
- - `string` is a unicode string
+ - `path` is a string path to a file or directory.
+ - `dir` is a path to a directory.
+ - `file` is a path to a file.
+ - `name` is the file or directory name without any preceding path.
+ - `extension` is the last dotted segment of a name, as in `.jar`.
+ - `stem` is the name without its extension.
+ - `pattern` is a shell glob, a la `*.py`.
+ - `expr` is a regular expression.
+ - `command` is something we pass to the shell.
+ - `proc` is a process object.
+ - `string` is a unicode string.
 
 ## Environment
 
