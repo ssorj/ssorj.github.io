@@ -1,0 +1,678 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Gambit &#8212; Gambit  documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Gambit  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-gambit"></span><div class="section" id="gambit">
+<h1>Gambit<a class="headerlink" href="#gambit" title="Permalink to this headline">¶</a></h1>
+<p><strong>Blocking</strong></p>
+<p>Blocking operations take optional timeout arguments.  If the timeout
+is exceeded, they raise a timeout error.</p>
+<p>The endpoint-lifecycle methods <cite>connect()</cite>, <cite>open_&lt;endpoint&gt;()</cite>, and
+<cite>close()</cite> start their respective operations but do not complete them.
+Use <cite>await_open()</cite> and <cite>await_close()</cite> to block until they are
+confirmed by the remote peer.</p>
+<p>Sender <cite>send()</cite> blocks until there is credit to send the message.
+It does not wait until the message is acknowledged.  The <cite>send()</cite>
+method returns a tracker, on which you can call <cite>await_delivery()</cite> to
+block until acknowledgment.</p>
+<p>Receiver <cite>receive()</cite> blocks until a message is available to return.</p>
+<p>CONSIDER: Sender.sendable() and Receiver.receivable().</p>
+<dl class="class">
+<dt id="gambit.Container">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Container</code><span class="sig-paren">(</span><em>id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Container" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gambit.Container.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Container.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close any open connections and stop the container.  Blocks until all connections are closed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Container.id">
+<code class="descname">id</code><a class="headerlink" href="#gambit.Container.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique identity of the container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Container.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Container.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate connection open.
+Use <a class="reference internal" href="#gambit.Connection.await_open" title="gambit.Connection.await_open"><code class="xref py py-meth docutils literal"><span class="pre">Connection.await_open()</span></code></a> to block until the remote peer confirms the open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Connection" title="gambit.Connection">Connection</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Connection">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Connection</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>open_operation</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gambit.Connection.open_sender">
+<code class="descname">open_sender</code><span class="sig-paren">(</span><em>address</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_sender" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate sender open.
+Use <a class="reference internal" href="#gambit.Sender.await_open" title="gambit.Sender.await_open"><code class="xref py py-meth docutils literal"><span class="pre">Sender.await_open()</span></code></a> to block until the remote peer confirms the open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Sender" title="gambit.Sender">Sender</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.open_receiver">
+<code class="descname">open_receiver</code><span class="sig-paren">(</span><em>address</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate receiver open.
+Use <a class="reference internal" href="#gambit.Receiver.await_open" title="gambit.Receiver.await_open"><code class="xref py py-meth docutils literal"><span class="pre">Receiver.await_open()</span></code></a> to block until the remote peer confirms the open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Receiver" title="gambit.Receiver">Receiver</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.open_anonymous_sender">
+<code class="descname">open_anonymous_sender</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_anonymous_sender" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate open of an unnamed sender.
+See <a class="reference internal" href="#gambit.Connection.open_sender" title="gambit.Connection.open_sender"><code class="xref py py-meth docutils literal"><span class="pre">open_sender()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Sender" title="gambit.Sender">Sender</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.open_dynamic_receiver">
+<code class="descname">open_dynamic_receiver</code><span class="sig-paren">(</span><em>timeout=None</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_dynamic_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intiate open of a sender with a dynamic source address supplied by the remote peer.
+See <a class="reference internal" href="#gambit.Connection.open_receiver" title="gambit.Connection.open_receiver"><code class="xref py py-meth docutils literal"><span class="pre">open_receiver()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Receiver" title="gambit.Receiver">Receiver</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Connection.default_session">
+<code class="descname">default_session</code><a class="headerlink" href="#gambit.Connection.default_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default session.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.await_close">
+<code class="descname">await_close</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.await_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the close.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.ErrorCondition" title="gambit.ErrorCondition">ErrorCondition</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.await_open">
+<code class="descname">await_open</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.await_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Connection.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>error_condition=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate close.
+Use <a class="reference internal" href="#gambit.Connection.await_close" title="gambit.Connection.await_close"><code class="xref py py-meth docutils literal"><span class="pre">await_close()</span></code></a> to block until the remote peer confirms the close.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Session">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Session</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>open_operation</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Session" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gambit.Session.await_close">
+<code class="descname">await_close</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Session.await_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the close.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.ErrorCondition" title="gambit.ErrorCondition">ErrorCondition</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Session.await_open">
+<code class="descname">await_open</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Session.await_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Session.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>error_condition=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Session.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate close.
+Use <a class="reference internal" href="#gambit.Session.await_close" title="gambit.Session.await_close"><code class="xref py py-meth docutils literal"><span class="pre">await_close()</span></code></a> to block until the remote peer confirms the close.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Sender">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Sender</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>open_operation</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Sender" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gambit.Sender.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>message</em>, <em>timeout=None</em>, <em>tracker_queue=None</em>, <em>on_delivery=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Sender.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message.</p>
+<p>Blocks until credit is available and the message can be sent.
+Use <a class="reference internal" href="#gambit.Tracker.await_delivery" title="gambit.Tracker.await_delivery"><code class="xref py py-meth docutils literal"><span class="pre">Tracker.await_delivery()</span></code></a> to block until the remote peer acknowledges the message.</p>
+<p>If set, a tracker for a completed delivery is placed on <cite>tracker_queue</cite> after the delivery is acknowledged.</p>
+<p>If set, <cite>on_delivery(tracker)</cite> is called after the delivery is acknowledged.
+It is called on another thread, not the main API thread.
+Users must take care to use thread-safe code in the callback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Tracker" title="gambit.Tracker">Tracker</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Sender.await_close">
+<code class="descname">await_close</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Sender.await_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the close.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.ErrorCondition" title="gambit.ErrorCondition">ErrorCondition</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Sender.await_open">
+<code class="descname">await_open</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Sender.await_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Sender.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>error_condition=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Sender.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate close.
+Use <a class="reference internal" href="#gambit.Sender.await_close" title="gambit.Sender.await_close"><code class="xref py py-meth docutils literal"><span class="pre">await_close()</span></code></a> to block until the remote peer confirms the close.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Sender.connection">
+<code class="descname">connection</code><a class="headerlink" href="#gambit.Sender.connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The connection containing this sender.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Sender.source">
+<code class="descname">source</code><a class="headerlink" href="#gambit.Sender.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source terminus.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Sender.target">
+<code class="descname">target</code><a class="headerlink" href="#gambit.Sender.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target terminus.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Receiver">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Receiver</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>open_operation</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>A receiver is an iterable object.
+Each item returned during iteration is a delivery obtained by calling <cite>receive()</cite>.</p>
+<dl class="method">
+<dt id="gambit.Receiver.receive">
+<code class="descname">receive</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Receiver.receive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a delivery containing a message.  Blocks until a message is available.</p>
+<p>CONSIDER: Flow one credit if credit is zero for a more convenient no-prefetch mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.Delivery" title="gambit.Delivery">Delivery</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Receiver.await_close">
+<code class="descname">await_close</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Receiver.await_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the close.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#gambit.ErrorCondition" title="gambit.ErrorCondition">ErrorCondition</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Receiver.await_open">
+<code class="descname">await_open</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Receiver.await_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer confirms the open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Receiver.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>error_condition=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Receiver.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate close.
+Use <a class="reference internal" href="#gambit.Receiver.await_close" title="gambit.Receiver.await_close"><code class="xref py py-meth docutils literal"><span class="pre">await_close()</span></code></a> to block until the remote peer confirms the close.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Receiver.connection">
+<code class="descname">connection</code><a class="headerlink" href="#gambit.Receiver.connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The connection containing this sender.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Receiver.source">
+<code class="descname">source</code><a class="headerlink" href="#gambit.Receiver.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source terminus.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Receiver.target">
+<code class="descname">target</code><a class="headerlink" href="#gambit.Receiver.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target terminus.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Source">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Source</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Source" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="gambit.Source.address">
+<code class="descname">address</code><a class="headerlink" href="#gambit.Source.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source or target address.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Target">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Target</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Target" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="gambit.Target.address">
+<code class="descname">address</code><a class="headerlink" href="#gambit.Target.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source or target address.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Tracker">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Tracker</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Tracker" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="gambit.Tracker.state">
+<code class="descname">state</code><a class="headerlink" href="#gambit.Tracker.state" title="Permalink to this definition">¶</a></dt>
+<dd><p>The state of the delivery as reported by the remote peer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Tracker.sender">
+<code class="descname">sender</code><a class="headerlink" href="#gambit.Tracker.sender" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sender containing this tracker.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Tracker.await_delivery">
+<code class="descname">await_delivery</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Tracker.await_delivery" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block until the remote peer acknowledges the tracked message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Tracker.message">
+<code class="descname">message</code><a class="headerlink" href="#gambit.Tracker.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The message associated with this transfer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Tracker.settle">
+<code class="descname">settle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Tracker.settle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the remote peer the transfer is settled.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Tracker.settled">
+<code class="descname">settled</code><a class="headerlink" href="#gambit.Tracker.settled" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the transfer is settled.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Delivery">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Delivery</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Delivery" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gambit.Delivery.accept">
+<code class="descname">accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Delivery.accept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the remote peer the delivery is accepted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Delivery.reject">
+<code class="descname">reject</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Delivery.reject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the remote peer the delivery is rejected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Delivery.release">
+<code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Delivery.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the remote peer the delivery is released.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Delivery.receiver">
+<code class="descname">receiver</code><a class="headerlink" href="#gambit.Delivery.receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>The receiver containing this delivery.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Delivery.message">
+<code class="descname">message</code><a class="headerlink" href="#gambit.Delivery.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The message associated with this transfer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Delivery.settle">
+<code class="descname">settle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Delivery.settle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the remote peer the transfer is settled.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Delivery.settled">
+<code class="descname">settled</code><a class="headerlink" href="#gambit.Delivery.settled" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the transfer is settled.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.Message">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">Message</code><span class="sig-paren">(</span><em>body=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Message" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="gambit.Message.to">
+<code class="descname">to</code><a class="headerlink" href="#gambit.Message.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>The destination address of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.user">
+<code class="descname">user</code><a class="headerlink" href="#gambit.Message.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user associated with this message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gambit.Message.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Message.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the contents of the L{Message}. All fields will be reset to
+their default values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.content_encoding">
+<code class="descname">content_encoding</code><a class="headerlink" href="#gambit.Message.content_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>The content-encoding of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.content_type">
+<code class="descname">content_type</code><a class="headerlink" href="#gambit.Message.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The content-type of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.correlation_id">
+<code class="descname">correlation_id</code><a class="headerlink" href="#gambit.Message.correlation_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The correlation-id for the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.creation_time">
+<code class="descname">creation_time</code><a class="headerlink" href="#gambit.Message.creation_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The creation time of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.delivery_count">
+<code class="descname">delivery_count</code><a class="headerlink" href="#gambit.Message.delivery_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of delivery attempts made for this message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.durable">
+<code class="descname">durable</code><a class="headerlink" href="#gambit.Message.durable" title="Permalink to this definition">¶</a></dt>
+<dd><p>The durable property indicates that the message should be held durably
+by any intermediaries taking responsibility for the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.expiry_time">
+<code class="descname">expiry_time</code><a class="headerlink" href="#gambit.Message.expiry_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The expiry time of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.first_acquirer">
+<code class="descname">first_acquirer</code><a class="headerlink" href="#gambit.Message.first_acquirer" title="Permalink to this definition">¶</a></dt>
+<dd><p>True iff the recipient is the first to acquire the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.group_id">
+<code class="descname">group_id</code><a class="headerlink" href="#gambit.Message.group_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The group id of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.group_sequence">
+<code class="descname">group_sequence</code><a class="headerlink" href="#gambit.Message.group_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sequence of the message within its group.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.id">
+<code class="descname">id</code><a class="headerlink" href="#gambit.Message.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The id of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.inferred">
+<code class="descname">inferred</code><a class="headerlink" href="#gambit.Message.inferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>The inferred flag for a message indicates how the message content
+is encoded into AMQP sections. If inferred is true then binary and
+list values in the body of the message will be encoded as AMQP DATA
+and AMQP SEQUENCE sections, respectively. If inferred is false,
+then all values in the body of the message will be encoded as AMQP
+VALUE sections regardless of their type.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.priority">
+<code class="descname">priority</code><a class="headerlink" href="#gambit.Message.priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>The priority of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.reply_to">
+<code class="descname">reply_to</code><a class="headerlink" href="#gambit.Message.reply_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reply-to address for the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.reply_to_group_id">
+<code class="descname">reply_to_group_id</code><a class="headerlink" href="#gambit.Message.reply_to_group_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The group-id for any replies.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.subject">
+<code class="descname">subject</code><a class="headerlink" href="#gambit.Message.subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>The subject of the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.Message.ttl">
+<code class="descname">ttl</code><a class="headerlink" href="#gambit.Message.ttl" title="Permalink to this definition">¶</a></dt>
+<dd><p>The time to live of the message measured in seconds. Expired messages
+may be dropped.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gambit.ErrorCondition">
+<em class="property">class </em><code class="descclassname">gambit.</code><code class="descname">ErrorCondition</code><span class="sig-paren">(</span><em>container</em>, <em>proton_object</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.ErrorCondition" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="gambit.ErrorCondition.name">
+<code class="descname">name</code><a class="headerlink" href="#gambit.ErrorCondition.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the error condition.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.ErrorCondition.description">
+<code class="descname">description</code><a class="headerlink" href="#gambit.ErrorCondition.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A description of the error condition.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gambit.ErrorCondition.properties">
+<code class="descname">properties</code><a class="headerlink" href="#gambit.ErrorCondition.properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra information about the error condition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="gambit.Error">
+<em class="property">exception </em><code class="descclassname">gambit.</code><code class="descname">Error</code><a class="headerlink" href="#gambit.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base Gambit API error.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gambit.TimeoutError">
+<em class="property">exception </em><code class="descclassname">gambit.</code><code class="descname">TimeoutError</code><a class="headerlink" href="#gambit.TimeoutError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if the requested timeout of a blocking operation is exceeded.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gambit.ConversionError">
+<em class="property">exception </em><code class="descclassname">gambit.</code><code class="descname">ConversionError</code><a class="headerlink" href="#gambit.ConversionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if data cannot be converted.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Gambit  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 1975.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+    </div>
+  </body>
+</html>
