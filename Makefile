@@ -8,3 +8,7 @@ render: clean
 
 clean:
 	rm -rf _preview
+
+update-gambit:
+	rm -rf _input/gambit
+	cp -a ~/code/gambit/build/docs/html _input/gambit

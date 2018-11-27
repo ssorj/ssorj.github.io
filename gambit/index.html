@@ -112,9 +112,12 @@ Use <a class="reference internal" href="#gambit.Sender.await_open" title="gambit
 
 <dl class="method">
 <dt id="gambit.Connection.open_receiver">
-<code class="descname">open_receiver</code><span class="sig-paren">(</span><em>address</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_receiver" title="Permalink to this definition">¶</a></dt>
+<code class="descname">open_receiver</code><span class="sig-paren">(</span><em>address</em>, <em>on_message=None</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_receiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiate receiver open.
 Use <a class="reference internal" href="#gambit.Receiver.await_open" title="gambit.Receiver.await_open"><code class="xref py py-meth docutils literal"><span class="pre">Receiver.await_open()</span></code></a> to block until the remote peer confirms the open.</p>
+<p>If set, <cite>on_message(delivery)</cite> is called when a message is received.
+It is called on another thread, not the main API thread.
+Users must take care to use thread-safe code in the callback.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
