@@ -145,9 +145,10 @@ See <a class="reference internal" href="#gambit.Connection.open_sender" title="g
 
 <dl class="method">
 <dt id="gambit.Connection.open_dynamic_receiver">
-<code class="descname">open_dynamic_receiver</code><span class="sig-paren">(</span><em>timeout=None</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_dynamic_receiver" title="Permalink to this definition">¶</a></dt>
+<code class="descname">open_dynamic_receiver</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#gambit.Connection.open_dynamic_receiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Intiate open of a sender with a dynamic source address supplied by the remote peer.
 See <a class="reference internal" href="#gambit.Connection.open_receiver" title="gambit.Connection.open_receiver"><code class="xref py py-meth docutils literal"><span class="pre">open_receiver()</span></code></a>.</p>
+<p>CONSIDER: Unlike the other opens, make this one block until the source address is received.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
