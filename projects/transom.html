@@ -15,7 +15,7 @@
 
 <div id="-head">
   <div id="-head-content">
-    <nav id="-path-navigation"><a href="https://www.ssorj.net/projects/index.html">Projects</a><a href="https://www.ssorj.net/projects/transom.html">Transom</a></nav>
+    <a href="https://www.ssorj.net/index.html">Home</a>
   </div>
 </div>
 <div id="-body">
@@ -31,68 +31,72 @@
 
 <h3 id="using-fedora-packages">Using Fedora packages</h3>
 
-<p>Use the <code>}5</code> command to download and install the Fedora package.</p>
+<p>Use the <code>dnf</code> command to download and install the Fedora package.</p>
 
-<pre><code>*4
+<pre><code>$ sudo dnf copr enable jross/ssorj
+$ sudo dnf install transom
 </code></pre>
 
 <h3 id="installing-from-source">Installing from source</h3>
 
-<p>Use the <code>}6</code> command to download the source.  Use <code>}7</code> to run the
+<p>Use the <code>git</code> command to download the source.  Use <code>make</code> to run the
 install procedure.</p>
 
-<pre><code>*5
+<pre><code>$ git clone https://github.com/ssorj/transom.git
+$ cd transom/
+$ make install
 </code></pre>
 
-<p>The default install location is <code>}8</code>. Use the <code>}9</code>
+<p>The default install location is <code>$HOME/.local</code>. Use the <code>PREFIX</code>
 argument to change it.</p>
 
-<pre><code>*6
+<pre><code>$ sudo make install PREFIX=/usr/local
 </code></pre>
 
 <h2 id="command-line">Command line</h2>
 
-<p>The <code>[0</code> command-line tool takes an input directory and an output
+<p>The <code>transom</code> command-line tool takes an input directory and an output
 directory.</p>
 
-<pre><code>*7
+<pre><code>$ transom some-input-dir/ some-output-dir/
 </code></pre>
 
-<p>Use the <code>[1</code> option to control the prefix used for HTML links.</p>
+<p>Use the <code>--site-url</code> option to control the prefix used for HTML links.</p>
 
-<pre><code>*8
+<pre><code>$ transom --site-url "http://ssorj.net" input/ output/
 </code></pre>
 
-<p>By default, the <code>[2</code> placeholder is set to a filesystem path in
+<p>By default, the <code>site_url</code> placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When
 publishing work to a public website root, you'll need to supply the
 appropriate site url.</p>
 
-<p>Use the <code>[3</code> option to see lots of logging.</p>
+<p>Use the <code>--verbose</code> option to see lots of logging.</p>
 
 <h2 id="adding-content">Adding content</h2>
 
 <p>Use your editor to create or edit a file under your input directory.</p>
 
-<pre><code>*9
+<pre><code>$ emacs input/some-page.md
 </code></pre>
 
 <p>Render the site.</p>
 
-<pre><code>_0
+<pre><code>$ transom input/ output/
 </code></pre>
 
 <p>Look at the result in your browser by navigating to the output
 location.</p>
 
-<pre><code>_1
+<pre><code>file:///home/jross/output/some-page.html
 </code></pre>
 
 <h2 id="special-files">Special files</h2>
 
 <p>Transom looks for two special files under the input directory.</p>
 
-<pre><code>_2
+<pre><code>$INPUT_DIR/_transom_config.py      # Custom placeholders
+$INPUT_DIR/_transom_template.html  # The template for HTML pages
 </code></pre>
 
 <p>These files are not copied to the output.</p>
@@ -104,8 +108,8 @@ output directory.  The following transformations are applied in the
 process.</p>
 
 <ul>
-<li><code>*2</code> files are wrapped in the site template and copied</li>
-<li><code>*3</code> (Markdown) files are converted to HTML, wrapped in the site
+<li><code>.html.in</code> files are wrapped in the site template and copied</li>
+<li><code>.md</code> (Markdown) files are converted to HTML, wrapped in the site
 template, and copied</li>
 <li>All other files are simply copied</li>
 <li>All Markdown, HTML, Javascript, and CSS files undergo substitution
@@ -121,15 +125,16 @@ This page is written in markdown.  See this <a href="http://daringfireball.net/p
 <a href="https://github.com/trentm/python-markdown2">python-markdown2</a>.</p>
 
 <p>I personally benefit from using <a href="http://jblevins.org/projects/markdown-mode/">emacs markdown mode</a>.  On
-Fedora it is part of the <code>[4</code> package.</p>
+Fedora it is part of the <code>emacs-goodies</code> package.</p>
 
 <h2 id="placeholders">Placeholders</h2>
 
-<p><code>[5</code> can be used to define variables and
+<p><code>$INPUT_DIR/_transom_config.py</code> can be used to define variables and
 functions for use in any input page.  The values will be evaluated on
 output.</p>
 
-<pre><code>_3
+<pre><code>current_release = "1.0"
+current_release_url = "http://example.com/releases/1.0/index.html"
 </code></pre>
 
 <p>The placeholder can then be embedded in any input file.  Placeholders

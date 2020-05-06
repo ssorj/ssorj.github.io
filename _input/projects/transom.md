@@ -6,12 +6,12 @@ Transom renders website content from markdown source files.
 
 ## Installation
 
-### Using Fedora packages
+<!-- ### Using Fedora packages -->
 
-Use the `dnf` command to download and install the Fedora package.
+<!-- Use the `dnf` command to download and install the Fedora package. -->
 
-    $ sudo dnf copr enable jross/ssorj
-    $ sudo dnf install transom
+<!--     $ sudo dnf copr enable jross/ssorj -->
+<!--     $ sudo dnf install transom -->
 
 ### Installing from source
 
@@ -25,18 +25,19 @@ install procedure.
 The default install location is `$HOME/.local`. Use the `PREFIX`
 argument to change it.
 
-    $ sudo make install PREFIX=/usr/local
+    $ make PREFIX=/usr/local
+    $ sudo make install
 
 ## Command line
 
 The `transom` command-line tool takes an input directory and an output
 directory.
 
-    $ transom some-input-dir/ some-output-dir/
-    
+    $ transom render some-input-dir/ some-output-dir/
+
 Use the `--site-url` option to control the prefix used for HTML links.
 
-    $ transom --site-url "http://ssorj.net" input/ output/
+    $ transom render --site-url "http://ssorj.net" input/ output/
 
 By default, the `site_url` placeholder is set to a filesystem path in
 your development environment, to allow for local testing.  When
@@ -53,21 +54,21 @@ Use your editor to create or edit a file under your input directory.
 
 Render the site.
 
-    $ transom input/ output/
+    $ transom render input/ output/
 
 Look at the result in your browser by navigating to the output
 location.
 
     file:///home/jross/output/some-page.html
 
-## Special files
+<!-- ## Special files -->
 
-Transom looks for two special files under the input directory.
+<!-- Transom looks for two special files under the input directory. -->
 
-    $INPUT_DIR/_transom_config.py      # Custom placeholders
-    $INPUT_DIR/_transom_template.html  # The template for HTML pages
+<!--     $INPUT_DIR/_transom_config.py      # Custom placeholders -->
+<!--     $INPUT_DIR/_transom_template.html  # The template for HTML pages -->
 
-These files are not copied to the output.
+<!-- These files are not copied to the output. -->
 
 ## Render transformations
 
@@ -113,18 +114,15 @@ are enclosed in double curly braces, as in
 There are some built-in placeholders for important cases.
 
 <pre><code>&#123;&#123;site_url&#125;&#125;              The URL prefix for your site
-&#123;&#123;path_navigation&#125;&#125;       An HTML list for use in site navigation
-&#123;&#123;title&#125;&#125;                 Positions the template title
-&#123;&#123;content&#125;&#125;               Positions the template content
 </code></pre>
 
 ;; ## Checking links
-;; 
+;;
 ;; The site tools offer a way to check that all your hyperlinks are
 ;; working.
-;; 
+;;
 ;;     # Usage: make check-links [INTERNAL=1] [EXTERNAL=0]
-;; 
+;;
 ;;     # Check internal links only
 ;;     transom$ make check-links
 ;;

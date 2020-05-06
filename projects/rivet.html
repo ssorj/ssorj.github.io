@@ -15,7 +15,7 @@
 
 <div id="-head">
   <div id="-head-content">
-    <nav id="-path-navigation"><a href="https://www.ssorj.net/projects/index.html">Projects</a><a href="https://www.ssorj.net/projects/rivet.html">Rivet</a></nav>
+    <a href="https://www.ssorj.net/index.html">Home</a>
   </div>
 </div>
 <div id="-body">
@@ -32,112 +32,149 @@ modules.</p>
 
 <h3 id="using-fedora-packages">Using Fedora packages</h3>
 
-<p>Use the <code>\12</code> command to download and install the Fedora package.</p>
+<p>Use the <code>dnf</code> command to download and install the Fedora package.</p>
 
-<pre><code>[6
+<pre><code>$ sudo dnf copr enable jross/ssorj
+$ sudo dnf install rivet
 </code></pre>
 
 <h3 id="installing-from-source">Installing from source</h3>
 
-<p>Use the <code>\13</code> command to download the source.  Use <code>\14</code> to run the
+<p>Use the <code>git</code> command to download the source.  Use <code>make</code> to run the
 install procedure.</p>
 
-<pre><code>[7
+<pre><code>$ git clone https://github.com/ssorj/rivet.git
+$ cd rivet/
+$ make install
 </code></pre>
 
-<p>The default install location is <code>\15</code>. Use the <code>\16</code>
+<p>The default install location is <code>$HOME/.local</code>. Use the <code>PREFIX</code>
 argument to change it.</p>
 
-<pre><code>[8
+<pre><code>$ sudo make install PREFIX=/usr/local
 </code></pre>
 
 <h2 id="using-rivet">Using Rivet</h2>
 
-<p>To see what Rivet thinks it's going to do, run the <code>\17</code> command.</p>
+<p>To see what Rivet thinks it's going to do, run the <code>info</code> command.</p>
 
-<pre><code>[9
+<pre><code>$ rivet info all
+rivet: Starting qpid-proton.info
+rivet: Calling 'git ls-remote http://git-wip-us.apache.org/repos [...]
+Module 'qpid-proton':
+  source_url:        http://git-wip-us.apache.org/repos/asf/qpid [...]
+  source_branch:     master
+  source_revision:   5afa455a5982eab0e5a4e6e6cf01fe12605870d9
+  source_dir:        /home/jross/.cache/rivet/source/qpid-proton
+  build_dir:         /home/jross/.cache/rivet/build/qpid-proton
+  release_tag:       master-20160813-5afa455a
+rivet: Finished qpid-proton.info
+[...]
 </code></pre>
 
 <p>This will tell you what the module names are and what parameters each
 will use to do its work.</p>
 
-<p>All commands (except <code>\18</code>) take a list of module names or <code>\19</code>.  The
+<p>All commands (except <code>env</code>) take a list of module names or <code>all</code>.  The
 latter tells Rivet to perform the operation for every modules reported
-by <code>\20</code>.</p>
+by <code>rivet info all</code>.</p>
 
-<p>You can specify a module revision by appending <code>\21</code> to the
-module name, as in <code>\22</code>.  Otherwise, Rivet uses the
+<p>You can specify a module revision by appending <code>@&lt;revision&gt;</code> to the
+module name, as in <code>qpid-cpp@25e73e5</code>.  Otherwise, Rivet uses the
 current tip of the master or trunk branch.</p>
 
-<pre><code>]0
+<pre><code>$ rivet build qpid-cpp
+$ rivet build qpid-cpp qpid-jms@1783666
+$ rivet build all
 </code></pre>
 
-<p>Use <code>\23</code> to check out module source code, <code>\24</code> to compile it,
-and <code>\25</code> to deploy it under the install prefix.  The <code>\26</code>
-command implies <code>\27</code>, which in turn implies <code>\28</code>.</p>
+<p>Use <code>export</code> to check out module source code, <code>build</code> to compile it,
+and <code>install</code> to deploy it under the install prefix.  The <code>install</code>
+command implies <code>build</code>, which in turn implies <code>export</code>.</p>
 
-<pre><code>]1
+<pre><code>$ rivet export [...]  # export
+$ rivet build  [...]  # export and build
+$ rivet install [...] # export, build, and install
 </code></pre>
 
-<p>The <code>\29</code> command will not re-export a source revision it already
-has.  Use <code>\30</code> to start from scratch.</p>
+<p>The <code>export</code> command will not re-export a source revision it already
+has.  Use <code>clean</code> to start from scratch.</p>
 
-<pre><code>]2
+<pre><code>$ rivet clean qpid-cpp qpid-jms
+$ rivet clean all
 </code></pre>
 
-<p>The <code>\31</code> command creates release artifacts.  Use the
-<code>\32</code> option to control the names of the resulting archives
+<p>The <code>release</code> command creates release artifacts.  Use the
+<code>--release-tag</code> option to control the names of the resulting archives
 and their internal root directory.  The default tag is the branch
 name, a date stamp, and a revision.</p>
 
-<pre><code>]3
+<pre><code>$ rivet release qpid-java
+[-&gt; ~/.cache/rivet/release/qpid-java-20160814-1756121.tar.gz]
+$ rivet release qpid-java --release-tag 6.0.5-beta
+[-&gt; ~/.cache/rivet/release/qpid-java-6.0.5-beta.tar.gz]
 </code></pre>
 
-<p>The <code>\33</code> command completes all of the foregoing and runs tests
+<p>The <code>test</code> command completes all of the foregoing and runs tests
 against it.</p>
 
-<pre><code>]4
+<pre><code>$ rivet test all      # Implies install and release
 </code></pre>
 
-<p>The <code>\34</code> command produces a shell-compatible environment for
+<p>The <code>env</code> command produces a shell-compatible environment for
 accessing the installed resources.  You can source this output
 directly into your shell to update the search paths for your session.</p>
 
-<pre><code>]5
+<pre><code>$ rivet env
+export LD_LIBRARY_PATH=/home/jross/.cache/rivet/install/lib64
+export PATH=/home/jross/.cache/rivet/install/bin:/home/jross/.ca [...]
+export PYTHONPATH=/home/jross/.cache/rivet/install/lib64/proton/ [...]
+$ source &lt;(rivet env)
 </code></pre>
 
 <p>For developers, the main attraction is getting the stuff you want to
 develop against installed and accessible to the shell where you are
 working.</p>
 
-<pre><code>]6
+<pre><code>$ rivet install all
+[Wait a while]
+$ source &lt;(rivet env)
+$ which qpidd
+~/.cache/rivet/install/sbin/qpidd
+$ which qdrouterd
+~/.cache/rivet/install/sbin/qdrouterd
 </code></pre>
 
 <p>If your environment is already setup to use an alternate install
 prefix, you can tell rivet to install there.</p>
 
-<pre><code>]7
+<pre><code>$ rivet install --prefix ~/.local
 </code></pre>
 
 <p>Rivet may also be used for simple continuous integration setup:</p>
 
-<pre><code>]8
+<pre><code>$ rivet test qpid-dispatch
 </code></pre>
 
 <p>To prepare a Qpid C++ release:</p>
 
-<pre><code>]9
+<pre><code>$ rivet clean qpid-cpp
+$ rivet test qpid-cpp --release-tag 1.35.1 |&amp; tee qpid-cpp-1.35.1-test-output.txt
+[See release artifacts at ~/.cache/rivet/release]
 </code></pre>
 
 <h2 id="output">Output</h2>
 
-<p>By default, Rivet's output appears under <code>\35</code>.
+<p>By default, Rivet's output appears under <code>$HOME/.cache/rivet</code>.
 Here's what you'll see under there:</p>
 
-<pre><code>(0
+<pre><code>source             Exported source trees
+build              Build trees
+install            The default installation prefix
+release            Release artifacts
 </code></pre>
 
-<p>The output directory can be overridden using the <code>\36</code> option.</p>
+<p>The output directory can be overridden using the <code>--output</code> option.</p>
 
 
   </div>

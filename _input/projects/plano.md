@@ -10,20 +10,20 @@ Plano uses the global function namespace to provide shell-like direct
 access to common script operations.
 
  - The character encoding is always UTF-8, and all strings are treated
-   as unicode.
+   as unicode.
  - Temporary files and directories are cleaned up on exit unless there was an error.
  - As a matter of philosophy, Plano functions don't fuss, they just make it happen.  For instance,
-   directories are generally created as needed.
+   directories are generally created as needed.
  - Plano isn't shy about talking about what it's doing on the console.
 
 ## Installation
 
-### Using Fedora packages
+<!-- ### Using Fedora packages -->
 
-Use the `dnf` command to download and install the Fedora package.
+<!-- Use the `dnf` command to download and install the Fedora package. -->
 
-    $ sudo dnf copr enable jross/ssorj
-    $ sudo dnf install python-plano
+<!--     $ sudo dnf copr enable jross/ssorj -->
+<!--     $ sudo dnf install python-plano -->
 
 ### Installing from source
 
@@ -32,14 +32,14 @@ install procedure.
 
     $ git clone https://github.com/ssorj/plano.git
     $ cd plano/
-    $ make
-    $ make install
+    $ make
+    $ make install
 
 The default install location is `$HOME/.local`. Use the `PREFIX`
 argument to change it.
-    
-    $ make PREFIX=/usr/local
-    $ sudo make install
+
+    $ make PREFIX=/usr/local
+    $ sudo make install
 
 ## Conventions for parameter names
 

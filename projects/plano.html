@@ -15,7 +15,7 @@
 
 <div id="-head">
   <div id="-head-content">
-    <nav id="-path-navigation"><a href="https://www.ssorj.net/projects/index.html">Projects</a><a href="https://www.ssorj.net/projects/plano.html">Plano</a></nav>
+    <a href="https://www.ssorj.net/index.html">Home</a>
   </div>
 </div>
 <div id="-body">
@@ -34,163 +34,221 @@ access to common script operations.</p>
 
 <ul>
 <li>The character encoding is always UTF-8, and all strings are treated
-  as unicode.</li>
+as unicode.</li>
 <li>Temporary files and directories are cleaned up on exit unless there was an error.</li>
 <li>As a matter of philosophy, Plano functions don't fuss, they just make it happen.  For instance,
-  directories are generally created as needed.</li>
+directories are generally created as needed.</li>
 <li>Plano isn't shy about talking about what it's doing on the console.</li>
 </ul>
 
 <h2 id="installation">Installation</h2>
 
-<h3 id="using-fedora-packages">Using Fedora packages</h3>
+<!-- ### Using Fedora packages -->
 
-<p>Use the <code>`11</code> command to download and install the Fedora package.</p>
+<!-- Use the `dnf` command to download and install the Fedora package. -->
 
-<pre><code>\51
-</code></pre>
+<p><!--     $ sudo dnf copr enable jross/ssorj -->
+<!--     $ sudo dnf install python-plano --></p>
 
 <h3 id="installing-from-source">Installing from source</h3>
 
-<p>Use the <code>`12</code> command to download the source.  Use <code>`13</code> to run the
+<p>Use the <code>git</code> command to download the source.  Use <code>make</code> to run the
 install procedure.</p>
 
-<pre><code>\52
+<pre><code>$ git clone https://github.com/ssorj/plano.git
+$ cd plano/
+$ make
+$ make install
 </code></pre>
 
-<p>$ cd plano/
-    $ make
-    $ make install</p>
+<p>The default install location is <code>$HOME/.local</code>. Use the <code>PREFIX</code>
+argument to change it.</p>
 
-<p>The default install location is <code>`14</code>. Use the <code>`15</code>
-argument to change it.
-    
-    $ make PREFIX=/usr/local
-    $ sudo make install</p>
+<pre><code>$ make PREFIX=/usr/local
+$ sudo make install
+</code></pre>
 
 <h2 id="conventions-for-parameter-names">Conventions for parameter names</h2>
 
 <ul>
-<li><code>\38</code> is a string path to a file or directory.</li>
-<li><code>\39</code> is a path to a directory.</li>
-<li><code>\40</code> is a path to a file.</li>
-<li><code>\41</code> is the file or directory name without any preceding path.</li>
-<li><code>\42</code> is the last dotted segment of a name, as in <code>\43</code>.</li>
-<li><code>\44</code> is the name without its extension.</li>
-<li><code>\45</code> is a shell glob, a la <code>\46</code>.</li>
-<li><code>\47</code> is a regular expression.</li>
-<li><code>\48</code> is something we pass to the shell.</li>
-<li><code>\49</code> is a process object.</li>
-<li><code>\50</code> is a unicode string.</li>
+<li><code>path</code> is a string path to a file or directory.</li>
+<li><code>dir</code> is a path to a directory.</li>
+<li><code>file</code> is a path to a file.</li>
+<li><code>name</code> is the file or directory name without any preceding path.</li>
+<li><code>extension</code> is the last dotted segment of a name, as in <code>.jar</code>.</li>
+<li><code>stem</code> is the name without its extension.</li>
+<li><code>pattern</code> is a shell glob, a la <code>*.py</code>.</li>
+<li><code>expr</code> is a regular expression.</li>
+<li><code>command</code> is something we pass to the shell.</li>
+<li><code>proc</code> is a process object.</li>
+<li><code>string</code> is a unicode string.</li>
 </ul>
 
 <h2 id="environment">Environment</h2>
 
-<pre><code>\53
+<pre><code>ENV                             Dictionary of environment variables
+ARGS                            List of command-line arguments; the 0th is the executable
+PATH_SEP                        '/' on posix, '\' on windows
+LINE_SEP                        '/n' on posix, '/n/r' on windows
 </code></pre>
 
 <h2 id="path-operations">Path operations</h2>
 
-<pre><code>\54
+<pre><code>join(path, *paths)              -&gt; path
+split(path)                     -&gt; leading path, trailing name
+spit_extension(path)            -&gt; path, extension
+
+parent_dir(path)                -&gt; dir
+file_name(path)                 -&gt; name
+name_extension(name)            -&gt; extension
+name_stem(name)                 -&gt; stem
+
+exists(path)                    -&gt; True or False
+is_absolute(path)               -&gt; True or False
+is_dir(path)                    -&gt; True or False
+is_file(path)                   -&gt; True or False
+is_link(path)                   -&gt; True or False
+
+absolute_path(path)             -&gt; path
+normalize_path(path)            -&gt; path
 </code></pre>
 
 <h2 id="file-operations">File operations</h2>
 
-<pre><code>\55
+<pre><code>copy(from_path, to_path)        -&gt; to_path
+move(from_path, to_path)        -&gt; to_path
+rename(path, expr, replacement) -&gt; renamed path
+remove(path)                    -&gt; path
+
+read(file)                      -&gt; string
+write(file, string)             -&gt; file
+append(file, string)            -&gt; file
+prepend(file, string)           -&gt; file
+touch(file)                     -&gt; file
+tail(file, nlines)              -&gt; string
 </code></pre>
 
 <p>These variants take a list of unicode strings, one per line.</p>
 
-<pre><code>\56
+<pre><code>read_lines(file)                -&gt; list of strings
+write_lines(file, lines)        -&gt; file
+append_lines(file, lines)       -&gt; file
+prepend_lines(file, lines)      -&gt; file
+tail_lines(file, nlines)        -&gt; list of strings
 </code></pre>
 
 <p>Operations on symlinks.</p>
 
-<pre><code>\57
+<pre><code>make_link(source_path, link_file) -&gt; link_file
+read_link(file)                   -&gt; target_path
 </code></pre>
 
 <h2 id="directory-operations">Directory operations</h2>
 
-<pre><code>\58
+<pre><code>change_dir(dir)                 -&gt; previous dir
+current_dir()                   -&gt; dir
+home_dir(user="")               -&gt; dir
+list_dir(dir, *patterns)        -&gt; sorted list of names
+make_dir(dir)                   -&gt; dir
 </code></pre>
 
 <p>Temporarily change the current working dir.  This is intended for use
-with the Python <code>`16</code> construct.</p>
+with the Python <code>with</code> construct.</p>
 
-<pre><code>\59
+<pre><code>with working_dir(dir):
+    assert current_dir() == dir
 </code></pre>
 
 <p>Search a filesystem tree recursively.</p>
 
-<pre><code>\60
+<pre><code>find(dir, *patterns)            -&gt; sorted list of paths
 </code></pre>
 
-<p>Find any one match.  Return <code>`17</code> if nothing matches.</p>
+<p>Find any one match.  Return <code>None</code> if nothing matches.</p>
 
-<pre><code>\61
+<pre><code>find_any_one(dir, *patterns)    -&gt; path or None
 </code></pre>
 
-<p>Find one match, and <em>fail</em> if multiple are found.  Return <code>`18</code> if
+<p>Find one match, and <em>fail</em> if multiple are found.  Return <code>None</code> if
 nothing matches.</p>
 
-<pre><code>\62
+<pre><code>find_only_one(dir, *patterns)   -&gt; path or None
 </code></pre>
 
 <h2 id="temporary-files-and-directories">Temporary files and directories</h2>
 
-<pre><code>\63
+<pre><code>make_temp_file()                -&gt; file
+make_temp_dir()                 -&gt; dir
 </code></pre>
 
 <p>Make a temporary directory that is retained on exit.</p>
 
-<pre><code>\64
+<pre><code>make_user_temp_dir()            -&gt; dir
 </code></pre>
 
 <h2 id="processes">Processes</h2>
 
 <p>Execute a shell command.  The command is a format string filled using
-<code>`19</code>.</p>
+<code>args</code>.</p>
 
-<pre><code>\65
+<pre><code>start_process(command, *args, **options) -&gt; proc
+wait_for_process(proc)
+stop_process(proc)
+
+call_for_exit_code(command, *args, **options) -&gt; exit code
 </code></pre>
 
-<p>These raise <code>`20</code> on failure.</p>
+<p>These raise <code>CalledProcessError</code> on failure.</p>
 
-<pre><code>\66
+<pre><code>call(command, *args, **options)
+call_for_output(command, *args, **options) -&gt; string
 </code></pre>
 
 <p>End the current process.  With no arguments, exits with process exit
-code 0.  Exits with 1 if <code>`21</code> is a string error message.  Exits with
-the given code if <code>`22</code> is an integer.</p>
+code 0.  Exits with 1 if <code>arg</code> is a string error message.  Exits with
+the given code if <code>arg</code> is an integer.</p>
 
-<pre><code>\67
+<pre><code>exit(arg=None, *args)
 </code></pre>
 
 <h2 id="logging">Logging</h2>
 
-<pre><code>\68
+<pre><code>fail(message, *args)
+error(message, *args)
+warn(message, *args)
+notice(message, *args)
+debug(message, *args)
 </code></pre>
 
-<p>Configure log output.  Message level is <code>`23</code>, <code>`24</code>,
-<code>`25</code>, or <code>`26</code>.  The default output is standard error, and the
-default threshold is <code>`27</code>.</p>
+<p>Configure log output.  Message level is <code>"debug"</code>, <code>"notice"</code>,
+<code>"warn"</code>, or <code>"error"</code>.  The default output is standard error, and the
+default threshold is <code>"notice"</code>.</p>
 
-<pre><code>\69
+<pre><code>set_message_output(writeable)
+set_message_threshold(level)
 </code></pre>
 
 <h2 id="miscellaneous">Miscellaneous</h2>
 
-<pre><code>\70
+<pre><code>sleep(seconds)
+
+make_archive(input_dir, output_dir, archive_stem) -&gt; output file
+extract_archive(archive_file, output_dir)         -&gt; output_dir
+rename_archive(archive_file, new_archive_stem)    -&gt; output file
+
+random_port(min=49152, max=65535) -&gt; port
+
+string_replace(string, expr, replacement, count=0) -&gt; string
 </code></pre>
 
-<p>Get the executable name of the current process or <code>`28</code>.</p>
+<p>Get the executable name of the current process or <code>command</code>.</p>
 
-<pre><code>\71
+<pre><code>program_name(command=None)
 </code></pre>
 
 <p>Flush standard output and error.</p>
 
-<pre><code>\72
+<pre><code>flush()
 </code></pre>
 
 

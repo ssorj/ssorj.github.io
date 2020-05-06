@@ -4,6 +4,7 @@
 
 [LinkedIn profile](https://www.linkedin.com/in/ssorj)
 
-[Projects]({{site_url}}/projects/index.html)
+[Projects on GitHub](https://github.com/ssorj?tab=repositories&type=source)
 
-[Links]({{site_url}}/links.html)
+;; [Projects]({{site_url}}/projects/index.html)
+;; [Links]({{site_url}}/links.html)
